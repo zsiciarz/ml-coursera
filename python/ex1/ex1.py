@@ -21,6 +21,21 @@ def compute_cost(X, y, theta):
     return cost / (2.0 * m)
 
 
+def gradient_descent(X, y, theta, alpha, num_iters):
+    m = y.size
+    J_history = np.zeros((num_iters, 1))
+    num_features = theta.size
+    for iter_count in range(num_iters):
+        delta = np.zeros((num_features, 1))
+        for k in range(num_features):
+            for i in range(m):
+                delta[k] += (np.dot(theta.transpose(), X[i]) - y[i]) * X[i, k]
+        theta -= (alpha / m) * delta
+        J_history[iter_count] = compute_cost(X, y, theta)
+    return (theta, J_history)
+
+
+
 if __name__ == '__main__':
     data1 = np.loadtxt('../../octave/ex1/ex1data1.txt', delimiter=',')
     # reshape to force X and y to be column vectors
@@ -33,3 +48,7 @@ if __name__ == '__main__':
     iterations = 1500
     alpha = 0.01
     print compute_cost(X, y, theta)
+    (theta, J_history) = gradient_descent(X, y, theta, alpha, iterations)
+    print theta
+    plot.plot(J_history)
+    plot.show()
