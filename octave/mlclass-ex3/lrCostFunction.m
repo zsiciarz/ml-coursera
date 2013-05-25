@@ -37,12 +37,13 @@ grad = zeros(size(theta));
 %
 
 
-
-
-
-
-
-
+h = sigmoid(X * theta);
+J = sum(-y .* log(h) - (1 - y) .* log(1 - h)) / m;
+% regularization for cost function
+J = J + (lambda / (2 * m)) * sum(theta(2:end) .^ 2);
+grad = (1 / m) * X' * (h .- y);
+% regularization for gradient values
+grad = grad + (lambda / m) * [0; theta(2:end)];
 
 
 % =============================================================
