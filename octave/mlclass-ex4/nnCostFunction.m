@@ -75,6 +75,9 @@ end;
 
 J = J / m;
 
+% regularization
+J = J + (lambda / (2 * m)) * (sum(sum(Theta1(:, 2:end) .^ 2)) + sum(sum(Theta2(:, 2:end) .^ 2)));
+
 
 % -------------------------------------------------------------
 
