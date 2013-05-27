@@ -25,13 +25,13 @@ def gradient_descent(X, y, theta, alpha, num_iters):
     num_features = theta.size
     for iter_count in range(num_iters):
         delta = np.zeros((num_features, 1))
+        h = X.dot(theta)
+        errors = h - y
         for k in range(num_features):
-            for i in range(m):
-                delta[k] += (np.dot(theta.transpose(), X[i]) - y[i]) * X[i, k]
+            delta[k] = sum(errors * X[:, k].reshape(-1, 1))
         theta -= (alpha / m) * delta
         J_history[iter_count] = compute_cost(X, y, theta)
     return (theta, J_history)
-
 
 
 if __name__ == '__main__':
