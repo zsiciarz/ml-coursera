@@ -15,10 +15,8 @@ def plot_data(X, y):
 
 def compute_cost(X, y, theta):
     m = y.size
-    cost = 0.0
-    for i in range(m):
-        cost += (np.dot(theta.transpose(), X[i]) - y[i]) ** 2
-    return cost / (2.0 * m)
+    costs = (X.dot(theta) - y) ** 2
+    return costs.sum() / (2.0 * m)
 
 
 def gradient_descent(X, y, theta, alpha, num_iters):
