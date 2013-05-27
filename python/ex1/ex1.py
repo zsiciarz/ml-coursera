@@ -22,15 +22,12 @@ def compute_cost(X, y, theta):
 def gradient_descent(X, y, theta, alpha, num_iters):
     m = y.size
     J_history = np.zeros((num_iters, 1))
-    num_features = theta.size
-    for iter_count in range(num_iters):
-        delta = np.zeros((num_features, 1))
+    for i in range(num_iters):
         h = X.dot(theta)
         errors = h - y
-        for k in range(num_features):
-            delta[k] = sum(errors * X[:, k].reshape(-1, 1))
+        delta = X.transpose().dot(errors)
         theta -= (alpha / m) * delta
-        J_history[iter_count] = compute_cost(X, y, theta)
+        J_history[i] = compute_cost(X, y, theta)
     return (theta, J_history)
 
 
