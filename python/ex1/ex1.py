@@ -45,6 +45,11 @@ if __name__ == '__main__':
     print compute_cost(X, y, theta)
     (theta, J_history) = gradient_descent(X, y, theta, alpha, iterations)
     print theta
+    plot.plot(X[:,1], y, 'rx', markersize=10)
+    plot.ylabel('Profit in $10,000s')
+    plot.xlabel('Population of City in 10,000s')
+    plot.plot(X[:,1], X.dot(theta), '-')
+    plot.show()
     predict1 = np.array([1, 3.5]).dot(theta)
     print 'For population = 35,000, we predict a profit of %f' % (predict1[0] * 10000)
     predict2 = np.array([1, 7]).dot(theta)
