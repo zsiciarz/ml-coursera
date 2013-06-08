@@ -54,3 +54,13 @@ if __name__ == '__main__':
     print 'For population = 35,000, we predict a profit of %f' % (predict1[0] * 10000)
     predict2 = np.array([1, 7]).dot(theta)
     print 'For population = 70,000, we predict a profit of %f' % (predict2[0] * 10000)
+    print 'Visualizing J(theta_0, theta_1) ...'
+    theta0_vals = np.linspace(-10, 10, 100)
+    theta1_vals = np.linspace(-1, 4, 100)
+    J_vals = np.zeros((theta0_vals.size, theta1_vals.size))
+    for i in range(theta0_vals.size):
+        for j in range(theta1_vals.size):
+            t = np.array([[theta0_vals[i]], [theta1_vals[j]]])
+            J_vals[i, j] = compute_cost(X, y, t)
+    plot.contour(theta0_vals, theta1_vals, J_vals, levels=np.logspace(-2, 3, 20))
+    plot.show()
