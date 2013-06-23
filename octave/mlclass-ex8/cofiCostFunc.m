@@ -47,6 +47,9 @@ J = 0.5 * sumsq(err(:));
 X_grad = err * Theta;
 Theta_grad = err' * X;
 
+% regularization
+J = J + (lambda / 2) * (sumsq(Theta(:)) + sumsq(X(:)));
+
 % =============================================================
 
 grad = [X_grad(:); Theta_grad(:)];
