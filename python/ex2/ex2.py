@@ -17,13 +17,10 @@ def sigmoid(x):
 
 
 def cost_function(theta, X, y):
-    cost = 0
     m = X.shape[0]
-    grad = np.zeros_like(theta)
     h = sigmoid(X.dot(theta))
     cost = sum(-y * np.log(h) - (1.0 - y) * np.log(1.0 - h))
-    for i in range(m):
-        grad += ((h[i] - y[i]) * X[i, :]).reshape(grad.shape)
+    grad = X.transpose().dot(h - y)
     return (cost / m, grad / m)
 
 
