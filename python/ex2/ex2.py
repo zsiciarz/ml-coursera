@@ -16,9 +16,28 @@ def sigmoid(x):
     return 1.0 / (1.0 + np.exp(-x))
 
 
+def cost_function(theta, X, y):
+    cost = 0
+    m = X.shape[0]
+    grad = np.zeros_like(theta)
+    for i in range(m):
+        h = sigmoid(theta.transpose().dot(X[i, :].transpose()))
+        cost += (-y[i] * np.log(h) - (1.0 - y[i]) * np.log(1 - h))
+        for j in range(theta.size):
+            grad[j] = grad[j] + (h - y[i]) * X[i, j]
+    return (cost / m, grad / m)
+
+
 if __name__ == '__main__':
     data1 = np.loadtxt('../../octave/mlclass-ex2/ex2data1.txt', delimiter=',')
     X = data1[:, 0:2]
     # reshape to force y to be a column vector
     y = data1[:, 2].reshape(-1, 1)
     plot_data(X, y)
+    m, n = X.shape
+    X = np.concatenate((np.ones((m, 1)), X), axis=1)
+    initial_theta = np.zeros((n + 1, 1))
+    cost, grad = cost_function(initial_theta, X, y)
+    print 'Cost at initial theta (zeros): %f' % cost
+    print 'Gradient at initial theta (zeros):'
+    print grad
