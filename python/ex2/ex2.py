@@ -20,10 +20,10 @@ def cost_function(theta, X, y):
     cost = 0
     m = X.shape[0]
     grad = np.zeros_like(theta)
+    h = sigmoid(X.dot(theta))
+    cost = sum(-y * np.log(h) - (1.0 - y) * np.log(1.0 - h))
     for i in range(m):
-        h = sigmoid(theta.transpose().dot(X[i, :]))
-        cost += (-y[i] * np.log(h) - (1.0 - y[i]) * np.log(1 - h))
-        grad += ((h - y[i]) * X[i, :]).reshape(grad.shape)
+        grad += ((h[i] - y[i]) * X[i, :]).reshape(grad.shape)
     return (cost / m, grad / m)
 
 
