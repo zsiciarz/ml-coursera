@@ -1,5 +1,6 @@
 import numpy as np
 from matplotlib import pyplot as plot
+from scipy import optimize
 
 
 def plot_data(X, y):
@@ -37,3 +38,17 @@ if __name__ == '__main__':
     print 'Cost at initial theta (zeros): %f' % cost
     print 'Gradient at initial theta (zeros):'
     print grad
+    # we need to do some wrapping and reshaping to play nice with fmin
+    wrapped = lambda t: cost_function(t.reshape(initial_theta.shape), X, y)[0]
+    result = optimize.fmin(
+        wrapped,
+        initial_theta.flatten(),
+        maxiter=400,
+        full_output=True,
+        disp=False
+    )
+    theta = result[0].reshape(initial_theta.shape)
+    cost = result[1]
+    print 'Cost at theta found by scipy.optimize.fmin: %f' % cost
+    print 'theta:'
+    print theta
