@@ -1,0 +1,4 @@
+ipython==0.13.2
+matplotlib==1.2.1
+numpy==1.7.1
+scipy==0.12.0
