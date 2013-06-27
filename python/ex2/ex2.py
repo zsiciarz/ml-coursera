@@ -53,3 +53,9 @@ if __name__ == '__main__':
     print 'Cost at theta found by scipy.optimize.fmin: %f' % cost
     print 'theta:'
     print theta
+    # plot the decision boundary
+    plot_x = np.array([X[:, 1].min() - 2, X[:, 1].max() + 2])
+    plot_y = (-theta[0] - theta[1] * plot_x) / theta[2]
+    plot_data(X[:, 1:], y, show=False)
+    plot.plot(plot_x, plot_y)
+    plot.show()
