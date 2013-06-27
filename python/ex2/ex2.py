@@ -59,3 +59,6 @@ if __name__ == '__main__':
     plot_data(X[:, 1:], y, show=False)
     plot.plot(plot_x, plot_y)
     plot.show()
+    # prediction
+    prob = sigmoid(np.array([1, 45, 85]).dot(theta))
+    print 'For a student with scores 45 and 85, we predict an admission probability of %f' % prob
