@@ -3,14 +3,15 @@ from matplotlib import pyplot as plot
 from scipy import optimize
 
 
-def plot_data(X, y):
+def plot_data(X, y, show=True):
     pos = y.nonzero()[0]
     neg = (y == 0).nonzero()[0]
     plot.plot(X[pos, 0], X[pos, 1], 'k+', markersize=7, linewidth=2)
     plot.plot(X[neg, 0], X[neg, 1], 'ko', markerfacecolor='y', markersize=7, linewidth=2)
     plot.xlabel('Exam 1 score')
     plot.ylabel('Exam 2 score')
-    plot.show()
+    if show:
+        plot.show()
 
 
 def sigmoid(x):
