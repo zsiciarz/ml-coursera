@@ -26,6 +26,10 @@ def cost_function(theta, X, y):
     return (cost / m, grad / m)
 
 
+def predict(theta, X):
+    return sigmoid(X.dot(theta)) >= 0.5
+
+
 if __name__ == '__main__':
     data1 = np.loadtxt('../../octave/mlclass-ex2/ex2data1.txt', delimiter=',')
     X = data1[:, 0:2]
