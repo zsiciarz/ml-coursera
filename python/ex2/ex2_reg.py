@@ -1,5 +1,6 @@
 import numpy as np
 from matplotlib import pyplot as plot
+from scipy import optimize
 
 from ex2 import plot_data, cost_function
 
@@ -39,3 +40,13 @@ if __name__ == '__main__':
     lambda_ = 1.0
     cost, grad = cost_function_reg(initial_theta, X, y, lambda_)
     print 'Cost at initial theta (zeros): %f' % cost
+    # we need to do some wrapping and reshaping to play nice with fmin
+    wrapped = lambda t: cost_function_reg(t.reshape(initial_theta.shape), X, y, lambda_)[0]
+    result = optimize.fmin(
+        wrapped,
+        initial_theta.flatten(),
+        maxiter=400,
+        full_output=True,
+        disp=False
+    )
+    theta = result[0].reshape(initial_theta.shape)
