@@ -30,7 +30,7 @@ def cost_function_reg(theta, X, y, lambda_):
 
 if __name__ == '__main__':
     data1 = np.loadtxt('../../octave/mlclass-ex2/ex2data2.txt', delimiter=',')
-    X = data1[:, 0:2]
+    X_original = X = data1[:, 0:2]
     # reshape to force y to be a column vector
     y = data1[:, 2].reshape(-1, 1)
     plot_data(X, y)
@@ -50,3 +50,14 @@ if __name__ == '__main__':
         disp=False
     )
     theta = result[0].reshape(initial_theta.shape)
+    # plot the decision boundary
+    plot_data(X_original, y, show=False)
+    u = np.linspace(-1, 1.5, 50)
+    v = np.linspace(-1, 1.5, 50)
+    z = np.zeros((u.size, v.size))
+    for i in range(u.size):
+        for j in range(v.size):
+            z[i, j] = map_feature(u[i], v[j]).dot(theta)
+    #contour(u, v, z, [0, 0], 'LineWidth', 2)
+    plot.contour(u, v, z.T, [0.0, 0.0])
+    plot.show()
