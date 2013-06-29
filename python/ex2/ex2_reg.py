@@ -6,9 +6,9 @@ from ex2 import plot_data, cost_function
 
 
 def map_feature(X1, X2, degree=6):
-    m = X1.shape[0]
     X1 = X1.reshape(-1, 1)
     X2 = X2.reshape(-1, 1)
+    m = X1.shape[0]
     out = np.ones((m, 1))
     for i in range(1, degree + 1):
         for j in range(i + 1):
@@ -22,8 +22,8 @@ def cost_function_reg(theta, X, y, lambda_):
     """
     m = X.shape[0]
     cost, gradient = cost_function(theta, X, y)
-    reg_cost = (lambda_ / (2.0 * m)) * np.sum(theta[2:, :] ** 2)
-    reg_gradient = (lambda_ / m) * gradient
+    reg_cost = (lambda_ / (2.0 * m)) * np.sum(theta[1:, :] ** 2)
+    reg_gradient = (lambda_ / m) * theta
     reg_gradient[0] = 0
     return cost + reg_cost, gradient + reg_gradient
 
