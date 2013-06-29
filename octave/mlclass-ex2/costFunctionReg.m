@@ -26,9 +26,10 @@ for i = 1:m
         grad(j) = grad(j) + (h - y(i)) * X(i, j);
     end;
 end;
-for j = 2 : size(theta)
-    grad(j) = grad(j) + lambda * theta(j);
-end;
+
+grad_reg = lambda * theta;
+grad_reg(1) = 0;
+grad = grad + grad_reg;
 
 % You need to return the following variables correctly
 J = cost / m + (lambda / (2.0 * m)) * sum(theta(2:size(theta)) .^ 2);
