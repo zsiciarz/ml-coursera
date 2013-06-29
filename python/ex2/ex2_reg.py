@@ -42,9 +42,11 @@ if __name__ == '__main__':
     print 'Cost at initial theta (zeros): %f' % cost
     # we need to do some wrapping and reshaping to play nice with fmin
     wrapped = lambda t: cost_function_reg(t.reshape(initial_theta.shape), X, y, lambda_)[0]
-    result = optimize.fmin(
+    wrapped_prime = lambda t: cost_function_reg(t.reshape(initial_theta.shape), X, y, lambda_)[1].flatten()
+    result = optimize.fmin_bfgs(
         wrapped,
         initial_theta.flatten(),
+        fprime=wrapped_prime,
         maxiter=400,
         full_output=True,
         disp=False
