@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plot
 from scipy import optimize
 
-from ex2 import plot_data, cost_function
+from ex2 import plot_data, cost_function, predict
 
 
 def map_feature(X1, X2, degree=6):
@@ -60,6 +60,8 @@ if __name__ == '__main__':
     for i in range(u.size):
         for j in range(v.size):
             z[i, j] = map_feature(u[i], v[j]).dot(theta)
-    #contour(u, v, z, [0, 0], 'LineWidth', 2)
     plot.contour(u, v, z.T, [0.0, 0.0])
     plot.show()
+    predictions = predict(theta, X)
+    accuracy = 100 * np.mean(map(int, predictions == y))
+    print 'Train accuracy: %0.2f %%' % accuracy
