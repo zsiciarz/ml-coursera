@@ -20,14 +20,9 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
-cost = 0;
-for i = 1:m
-    h = sigmoid(theta' * X(i,:)');
-    cost = cost + (-y(i) * log(h) - (1 - y(i)) * log(1 - h));
-    for j = 1 : size(theta)
-        grad(j) = grad(j) + (h - y(i)) * X(i, j);
-    end;
-end;
+h = sigmoid(X * theta);
+cost = sum(-y .* log(h) - (1 - y) .* log(1 - h));
+grad = X' * (h - y);
 
 % You need to return the following variables correctly
 J = cost / m;
