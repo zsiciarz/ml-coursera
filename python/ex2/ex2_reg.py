@@ -6,6 +6,9 @@ from ex2 import plot_data, cost_function, predict
 
 
 def map_feature(X1, X2, degree=6):
+    """
+    Creates polynomial features up to ``degree``.
+    """
     X1 = X1.reshape(-1, 1)
     X2 = X2.reshape(-1, 1)
     m = X1.shape[0]

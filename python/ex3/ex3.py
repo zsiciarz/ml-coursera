@@ -5,6 +5,10 @@ from scipy.io import loadmat
 
 
 def display_data(X):
+    """
+    Transforms each input row into a rectangular image part and plots
+    the resulting image.
+    """
     m, n = X.shape
     example_width = int(np.around(np.sqrt(n)))
     example_height = n / example_width
