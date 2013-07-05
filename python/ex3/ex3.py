@@ -29,6 +29,30 @@ def display_data(X):
     plot.show()
 
 
+def sigmoid(x):
+    return 1.0 / (1.0 + np.exp(-x))
+
+
+def cost_function(theta, X, y):
+    m = X.shape[0]
+    h = sigmoid(X.dot(theta))
+    cost = sum(-y * np.log(h) - (1.0 - y) * np.log(1.0 - h))
+    grad = X.transpose().dot(h - y)
+    return (cost / m, grad / m)
+
+
+def cost_function_reg(theta, X, y, lambda_):
+    """
+    Regularized logistic regression cost function.
+    """
+    m = X.shape[0]
+    cost, gradient = cost_function(theta, X, y)
+    reg_cost = (lambda_ / (2.0 * m)) * np.sum(theta[1:, :] ** 2)
+    reg_gradient = (lambda_ / m) * theta
+    reg_gradient[0] = 0
+    return cost + reg_cost, gradient + reg_gradient
+
+
 if __name__ == '__main__':
     data = loadmat('../../octave/mlclass-ex3/ex3data1.mat')
     X = data['X']
