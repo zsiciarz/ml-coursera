@@ -75,6 +75,10 @@ def one_vs_all(X, y, num_labels, lambda_):
     return all_theta
 
 
+def predict_one_vs_all(theta, X):
+    return 1 + np.argmax(sigmoid(X.dot(theta.T)), axis=1).reshape(-1, 1)
+
+
 if __name__ == '__main__':
     data = loadmat('../../octave/mlclass-ex3/ex3data1.mat')
     X = data['X']
@@ -84,3 +88,6 @@ if __name__ == '__main__':
     m = X.shape[0]
     X = np.concatenate((np.ones((m, 1)), X), axis=1)
     all_theta = one_vs_all(X, y, 10, 0)
+    predictions = predict_one_vs_all(all_theta, X)
+    accuracy = 100 * np.mean(map(int, predictions == y))
+    print 'Train accuracy: %0.2f %%' % accuracy
