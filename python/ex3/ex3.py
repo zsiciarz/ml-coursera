@@ -1,6 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plot
 import matplotlib.cm as cm
+from scipy import optimize
 from scipy.io import loadmat
 
 
@@ -51,6 +52,27 @@ def cost_function_reg(theta, X, y, lambda_):
     reg_gradient = (lambda_ / m) * theta
     reg_gradient[0] = 0
     return cost + reg_cost, gradient + reg_gradient
+
+
+def one_vs_all(X, y, num_labels, lambda_):
+    n = X.shape[1]
+    all_theta = np.zeros((num_labels, n))
+    for c in range(1, num_labels + 1):
+        initial_theta = np.zeros((n, 1))
+        target = np.vectorize(int)(y == c)
+        wrapped = lambda t: cost_function_reg(t.reshape(initial_theta.shape), X, target, lambda_)[0]
+        wrapped_prime = lambda t: cost_function_reg(t.reshape(initial_theta.shape), X, target, lambda_)[1].flatten()
+        result = optimize.fmin_bfgs(
+            wrapped,
+            initial_theta.flatten(),
+            fprime=wrapped_prime,
+            maxiter=50,
+            full_output=True,
+            disp=False
+        )
+        theta = result[0].reshape(initial_theta.shape)
+        all_theta[c - 1, :] = theta.T
+    return all_theta
 
 
 if __name__ == '__main__':
