@@ -81,3 +81,6 @@ if __name__ == '__main__':
     y = data['y']
     sel = np.random.permutation(X)[:100]
     display_data(sel)
+    m = X.shape[0]
+    X = np.concatenate((np.ones((m, 1)), X), axis=1)
+    all_theta = one_vs_all(X, y, 10, 0)
