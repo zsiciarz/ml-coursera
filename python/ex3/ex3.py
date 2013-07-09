@@ -90,7 +90,7 @@ if __name__ == '__main__':
     display_data(sel)
     m = X.shape[0]
     X = np.concatenate((np.ones((m, 1)), X), axis=1)
-    all_theta = one_vs_all(X, y, 10, 0)
+    all_theta = one_vs_all(X, y, 10, 1)
     predictions = predict_one_vs_all(all_theta, X)
     accuracy = 100 * np.mean(map(int, predictions == y))
     print 'Train accuracy: %0.2f %%' % accuracy
