@@ -26,7 +26,7 @@ def gradient_descent(X, y, theta, alpha, num_iters):
     for i in range(num_iters):
         h = X.dot(theta)
         errors = h - y
-        delta = X.transpose().dot(errors)
+        delta = X.T.dot(errors)
         theta -= (alpha / m) * delta
         J_history[i] = compute_cost(X, y, theta)
     return (theta, J_history)

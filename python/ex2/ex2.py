@@ -22,7 +22,7 @@ def cost_function(theta, X, y):
     m = X.shape[0]
     h = sigmoid(X.dot(theta))
     cost = sum(-y * np.log(h) - (1.0 - y) * np.log(1.0 - h))
-    grad = X.transpose().dot(h - y)
+    grad = X.T.dot(h - y)
     return (cost / m, grad / m)
 
 
