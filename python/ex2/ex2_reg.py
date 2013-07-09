@@ -40,18 +40,18 @@ if __name__ == '__main__':
     lambda_ = 1.0
     cost, grad = cost_function_reg(initial_theta, X, y, lambda_)
     print 'Cost at initial theta (zeros): %f' % cost
-    # we need to do some wrapping to play nice with fmin
-    wrapped = lambda t: cost_function_reg(t, X, y, lambda_)[0]
-    wrapped_prime = lambda t: cost_function_reg(t, X, y, lambda_)[1]
-    result = optimize.fmin_bfgs(
-        wrapped,
+    result = optimize.minimize(
+        cost_function_reg,
         initial_theta,
-        fprime=wrapped_prime,
-        maxiter=400,
-        full_output=True,
-        disp=False
+        args=(X, y, lambda_),
+        method='CG',
+        jac=True,
+        options={
+            'maxiter': 400,
+            'disp': False,
+        }
     )
-    theta = result[0]
+    theta = result.x
     # plot the decision boundary
     plot_data(X_original, y, show=False)
     u = np.linspace(-1, 1.5, 50)
