@@ -33,26 +33,25 @@ def predict(theta, X):
 if __name__ == '__main__':
     data1 = np.loadtxt('../../octave/mlclass-ex2/ex2data1.txt', delimiter=',')
     X = data1[:, 0:2]
-    # reshape to force y to be a column vector
-    y = data1[:, 2].reshape(-1, 1)
+    y = data1[:, 2]
     plot_data(X, y)
     m, n = X.shape
     X = np.concatenate((np.ones((m, 1)), X), axis=1)
-    initial_theta = np.zeros((n + 1, 1))
+    initial_theta = np.zeros(n + 1)
     cost, grad = cost_function(initial_theta, X, y)
     print 'Cost at initial theta (zeros): %f' % cost
     print 'Gradient at initial theta (zeros):'
     print grad
-    # we need to do some wrapping and reshaping to play nice with fmin
-    wrapped = lambda t: cost_function(t.reshape(initial_theta.shape), X, y)[0]
+    # we need to do some wrapping to play nice with fmin
+    wrapped = lambda t: cost_function(t, X, y)[0]
     result = optimize.fmin(
         wrapped,
-        initial_theta.flatten(),
+        initial_theta,
         maxiter=400,
         full_output=True,
         disp=False
     )
-    theta = result[0].reshape(initial_theta.shape)
+    theta = result[0]
     cost = result[1]
     print 'Cost at theta found by scipy.optimize.fmin: %f' % cost
     print 'theta:'
