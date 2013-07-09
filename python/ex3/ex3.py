@@ -71,6 +71,8 @@ def one_vs_all(X, y, num_labels, lambda_):
             disp=False
         )
         theta = result[0].reshape(initial_theta.shape)
+        cost = result[1]
+        print 'Training theta for label %d | cost: %f' % (c, cost)
         all_theta[c - 1, :] = theta.T
     return all_theta
 
