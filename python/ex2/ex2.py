@@ -41,7 +41,7 @@ if __name__ == '__main__':
     cost, grad = cost_function(initial_theta, X, y)
     print 'Cost at initial theta (zeros): %f' % cost
     print 'Gradient at initial theta (zeros): \n %s' % grad
-    # we need to do some wrapping to play nice with fmin
+    # we need to do some wrapping to play nice with minimize
     wrapped = lambda t: cost_function(t, X, y)[0]
     result = optimize.minimize(
         wrapped,
