@@ -43,15 +43,17 @@ if __name__ == '__main__':
     print 'Gradient at initial theta (zeros): \n %s' % grad
     # we need to do some wrapping to play nice with fmin
     wrapped = lambda t: cost_function(t, X, y)[0]
-    result = optimize.fmin(
+    result = optimize.minimize(
         wrapped,
         initial_theta,
-        maxiter=400,
-        full_output=True,
-        disp=False
+        method='Nelder-Mead',
+        options={
+            'maxiter': 400,
+            'disp': False,
+        }
     )
-    theta = result[0]
-    cost = result[1]
+    theta = result.x
+    cost = result.fun
     print 'Cost at theta found by scipy.optimize.fmin: %f' % cost
     print 'theta: \n %s' % theta
     # plot the decision boundary
