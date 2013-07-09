@@ -40,8 +40,7 @@ if __name__ == '__main__':
     initial_theta = np.zeros(n + 1)
     cost, grad = cost_function(initial_theta, X, y)
     print 'Cost at initial theta (zeros): %f' % cost
-    print 'Gradient at initial theta (zeros):'
-    print grad
+    print 'Gradient at initial theta (zeros): \n %s' % grad
     # we need to do some wrapping to play nice with fmin
     wrapped = lambda t: cost_function(t, X, y)[0]
     result = optimize.fmin(
@@ -54,8 +53,7 @@ if __name__ == '__main__':
     theta = result[0]
     cost = result[1]
     print 'Cost at theta found by scipy.optimize.fmin: %f' % cost
-    print 'theta:'
-    print theta
+    print 'theta: \n %s' % theta
     # plot the decision boundary
     plot_x = np.array([X[:, 1].min() - 2, X[:, 1].max() + 2])
     plot_y = (-theta[0] - theta[1] * plot_x) / theta[2]
