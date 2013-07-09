@@ -10,7 +10,7 @@ def predict(Theta1, Theta2, X):
     predictions = np.zeros(m)
     for i in range(m):
         a1 = X[i, :]
-        a2 = np.concatenate((np.ones(1), sigmoid(Theta1.dot(a1))))
+        a2 = np.concatenate(([1.0], sigmoid(Theta1.dot(a1))))
         a3 = sigmoid(Theta2.dot(a2))
         predictions[i] = 1 + np.argmax(a3)
     return predictions
