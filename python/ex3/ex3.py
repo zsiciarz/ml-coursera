@@ -60,10 +60,10 @@ def one_vs_all(X, y, num_labels, lambda_):
     for c in range(1, num_labels + 1):
         initial_theta = np.zeros(n)
         target = np.vectorize(int)(y == c)
-        wrapped = lambda t: cost_function_reg(t, X, target, lambda_)
         result = optimize.minimize(
-            wrapped,
+            cost_function_reg,
             initial_theta,
+            args=(X, target, lambda_),
             method='CG',
             jac=True,
             options={
