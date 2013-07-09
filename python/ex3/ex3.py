@@ -60,18 +60,19 @@ def one_vs_all(X, y, num_labels, lambda_):
     for c in range(1, num_labels + 1):
         initial_theta = np.zeros(n)
         target = np.vectorize(int)(y == c)
-        wrapped = lambda t: cost_function_reg(t, X, target, lambda_)[0]
-        wrapped_prime = lambda t: cost_function_reg(t, X, target, lambda_)[1]
-        result = optimize.fmin_cg(
+        wrapped = lambda t: cost_function_reg(t, X, target, lambda_)
+        result = optimize.minimize(
             wrapped,
             initial_theta,
-            fprime=wrapped_prime,
-            maxiter=50,
-            full_output=True,
-            disp=False
+            method='CG',
+            jac=True,
+            options={
+                'maxiter': 50,
+                'disp': False,
+            }
         )
-        theta = result[0]
-        cost = result[1]
+        theta = result.x
+        cost = result.fun
         print 'Training theta for label %d | cost: %f' % (c, cost)
         all_theta[c - 1, :] = theta
     return all_theta
