@@ -62,7 +62,7 @@ def one_vs_all(X, y, num_labels, lambda_):
         target = np.vectorize(int)(y == c)
         wrapped = lambda t: cost_function_reg(t, X, target, lambda_)[0]
         wrapped_prime = lambda t: cost_function_reg(t, X, target, lambda_)[1]
-        result = optimize.fmin_bfgs(
+        result = optimize.fmin_cg(
             wrapped,
             initial_theta,
             fprime=wrapped_prime,
