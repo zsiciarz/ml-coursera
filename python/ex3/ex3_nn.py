@@ -7,12 +7,10 @@ from ex3 import display_data, sigmoid
 
 def predict(Theta1, Theta2, X):
     m = X.shape[0]
-    predictions = np.zeros(m)
-    for i in range(m):
-        a1 = X[i, :]
-        a2 = np.concatenate(([1.0], sigmoid(Theta1.dot(a1))))
-        a3 = sigmoid(Theta2.dot(a2))
-        predictions[i] = 1 + np.argmax(a3)
+    A2 = sigmoid(X.dot(Theta1.T))
+    A2 = np.concatenate((np.ones((m, 1)), A2), axis=1)
+    A3 = sigmoid(A2.dot(Theta2.T))
+    predictions = 1 + np.argmax(A3, axis=1)
     return predictions
 
 
