@@ -1,5 +1,6 @@
 import numpy as np
 from matplotlib import pyplot as plot
+from mpl_toolkits.mplot3d import Axes3D
 
 
 def warmup_exercise():
@@ -62,4 +63,9 @@ if __name__ == '__main__':
             t = np.array([theta0_vals[i], theta1_vals[j]])
             J_vals[i, j] = compute_cost(X, y, t)
     plot.contour(theta0_vals, theta1_vals, J_vals, levels=np.logspace(-2, 3, 20))
+    plot.show()
+    fig = plot.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    t0, t1 = np.meshgrid(theta0_vals, theta1_vals)
+    ax.plot_surface(t0, t1, J_vals)
     plot.show()
