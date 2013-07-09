@@ -25,7 +25,7 @@ def cost_function_reg(theta, X, y, lambda_):
     """
     m = X.shape[0]
     cost, gradient = cost_function(theta, X, y)
-    reg_cost = (lambda_ / (2.0 * m)) * np.sum(theta[1:, :] ** 2)
+    reg_cost = (lambda_ / (2.0 * m)) * np.sum(theta[1:] ** 2)
     reg_gradient = (lambda_ / m) * theta
     reg_gradient[0] = 0
     return cost + reg_cost, gradient + reg_gradient
@@ -34,27 +34,26 @@ def cost_function_reg(theta, X, y, lambda_):
 if __name__ == '__main__':
     data1 = np.loadtxt('../../octave/mlclass-ex2/ex2data2.txt', delimiter=',')
     X_original = X = data1[:, 0:2]
-    # reshape to force y to be a column vector
-    y = data1[:, 2].reshape(-1, 1)
+    y = data1[:, 2]
     plot_data(X, y)
     X = map_feature(X[:, 0], X[:, 1])
     m, n = X.shape
-    initial_theta = np.zeros((n, 1))
+    initial_theta = np.zeros(n)
     lambda_ = 1.0
     cost, grad = cost_function_reg(initial_theta, X, y, lambda_)
     print 'Cost at initial theta (zeros): %f' % cost
     # we need to do some wrapping and reshaping to play nice with fmin
-    wrapped = lambda t: cost_function_reg(t.reshape(initial_theta.shape), X, y, lambda_)[0]
-    wrapped_prime = lambda t: cost_function_reg(t.reshape(initial_theta.shape), X, y, lambda_)[1].flatten()
+    wrapped = lambda t: cost_function_reg(t, X, y, lambda_)[0]
+    wrapped_prime = lambda t: cost_function_reg(t, X, y, lambda_)[1]
     result = optimize.fmin_bfgs(
         wrapped,
-        initial_theta.flatten(),
+        initial_theta,
         fprime=wrapped_prime,
         maxiter=400,
         full_output=True,
         disp=False
     )
-    theta = result[0].reshape(initial_theta.shape)
+    theta = result[0]
     # plot the decision boundary
     plot_data(X_original, y, show=False)
     u = np.linspace(-1, 1.5, 50)
