@@ -10,11 +10,11 @@ def map_feature(X1, X2, degree=6):
     Creates polynomial features up to ``degree``.
     """
     m = X1.shape[0] if X1.shape else 1
-    out = np.ones(m)
+    cols = [np.ones(m)]
     for i in range(1, degree + 1):
         for j in range(i + 1):
-            out = np.vstack((out, (X1 ** (i - j)) * (X2 ** j)))
-    return out.T
+            cols.append((X1 ** (i - j)) * (X2 ** j))
+    return np.vstack(cols).T
 
 
 def cost_function_reg(theta, X, y, lambda_):
