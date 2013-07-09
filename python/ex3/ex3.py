@@ -79,7 +79,7 @@ def one_vs_all(X, y, num_labels, lambda_):
 
 def predict_one_vs_all(theta, X):
     # adding one to compensate label offset
-    return 1 + np.argmax(sigmoid(X.dot(theta.T)), axis=1).reshape(-1, 1)
+    return 1 + np.argmax(sigmoid(X.dot(theta.T)), axis=1)
 
 
 if __name__ == '__main__':
