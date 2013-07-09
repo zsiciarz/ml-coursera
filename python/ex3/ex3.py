@@ -48,7 +48,7 @@ def cost_function_reg(theta, X, y, lambda_):
     """
     m = X.shape[0]
     cost, gradient = cost_function(theta, X, y)
-    reg_cost = (lambda_ / (2.0 * m)) * np.sum(theta[1:, :] ** 2)
+    reg_cost = (lambda_ / (2.0 * m)) * np.sum(theta[1:] ** 2)
     reg_gradient = (lambda_ / m) * theta
     reg_gradient[0] = 0
     return cost + reg_cost, gradient + reg_gradient
@@ -58,22 +58,22 @@ def one_vs_all(X, y, num_labels, lambda_):
     n = X.shape[1]
     all_theta = np.zeros((num_labels, n))
     for c in range(1, num_labels + 1):
-        initial_theta = np.zeros((n, 1))
+        initial_theta = np.zeros(n)
         target = np.vectorize(int)(y == c)
-        wrapped = lambda t: cost_function_reg(t.reshape(initial_theta.shape), X, target, lambda_)[0]
-        wrapped_prime = lambda t: cost_function_reg(t.reshape(initial_theta.shape), X, target, lambda_)[1].flatten()
+        wrapped = lambda t: cost_function_reg(t, X, target, lambda_)[0]
+        wrapped_prime = lambda t: cost_function_reg(t, X, target, lambda_)[1]
         result = optimize.fmin_bfgs(
             wrapped,
-            initial_theta.flatten(),
+            initial_theta,
             fprime=wrapped_prime,
             maxiter=50,
             full_output=True,
             disp=False
         )
-        theta = result[0].reshape(initial_theta.shape)
+        theta = result[0]
         cost = result[1]
         print 'Training theta for label %d | cost: %f' % (c, cost)
-        all_theta[c - 1, :] = theta.T
+        all_theta[c - 1, :] = theta
     return all_theta
 
 
