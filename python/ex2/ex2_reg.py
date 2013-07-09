@@ -40,7 +40,7 @@ if __name__ == '__main__':
     lambda_ = 1.0
     cost, grad = cost_function_reg(initial_theta, X, y, lambda_)
     print 'Cost at initial theta (zeros): %f' % cost
-    # we need to do some wrapping and reshaping to play nice with fmin
+    # we need to do some wrapping to play nice with fmin
     wrapped = lambda t: cost_function_reg(t, X, y, lambda_)[0]
     wrapped_prime = lambda t: cost_function_reg(t, X, y, lambda_)[1]
     result = optimize.fmin_bfgs(
