@@ -33,6 +33,10 @@ def sigmoid(x):
     return 1.0 / (1.0 + np.exp(-x))
 
 
+def sigmoid_gradient(x):
+    return sigmoid(x) * (1.0 - sigmoid(x))
+
+
 def nn_cost_function(nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, lambda_):
     boundary = input_layer_size * (hidden_layer_size - 1)
     Theta1 = nn_params[:boundary].reshape((hidden_layer_size - 1, input_layer_size))
@@ -91,3 +95,6 @@ if __name__ == '__main__':
     )
     print 'Cost at parameters (loaded from ex4weights): %f' % cost
     print '(this value should be about 0.383770)'
+    print 'Evaluating sigmoid gradient...'
+    gradient = sigmoid_gradient(np.array([1, -0.5, 0, 0.5, 1]))
+    print 'Sigmoid gradient evaluated at [1 -0.5 0 0.5 1]:\n%s' % gradient
