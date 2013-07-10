@@ -56,6 +56,11 @@ def nn_cost_function(nn_params, input_layer_size, hidden_layer_size, num_labels,
     return cost + reg_cost
 
 
+def rand_initialize_weights(L_in, L_out):
+    eps = 0.12
+    return np.random.rand(L_in, L_out) * 2.0 * eps - eps
+
+
 if __name__ == '__main__':
     print 'Loading and Visualizing Data ...'
     data = loadmat('../../octave/mlclass-ex4/ex4data1.mat')
@@ -89,3 +94,5 @@ if __name__ == '__main__':
     print 'Evaluating sigmoid gradient...'
     gradient = sigmoid_gradient(np.array([1, -0.5, 0, 0.5, 1]))
     print 'Sigmoid gradient evaluated at [1 -0.5 0 0.5 1]:\n%s' % gradient
+    initial_Theta1 = rand_initialize_weights(input_layer_size, hidden_layer_size)
+    initial_Theta2 = rand_initialize_weights(hidden_layer_size, num_labels)
