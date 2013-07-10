@@ -34,8 +34,13 @@ def sigmoid(x):
 
 
 if __name__ == '__main__':
+    print 'Loading and Visualizing Data ...'
     data = loadmat('../../octave/mlclass-ex4/ex4data1.mat')
     X = data['X']
     y = data['y'].flatten()
     sel = np.random.permutation(X)[:100]
     display_data(sel)
+    print 'Loading Saved Neural Network Parameters ...'
+    weights = loadmat('../../octave/mlclass-ex4/ex4weights.mat')
+    Theta1 = weights['Theta1']
+    Theta2 = weights['Theta2']
