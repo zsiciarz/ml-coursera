@@ -68,17 +68,14 @@ if __name__ == '__main__':
     Theta1 = weights['Theta1']
     Theta2 = weights['Theta2']
     m = X.shape[0]
+    input_layer_size = Theta1.shape[1]
+    hidden_layer_size = Theta2.shape[1]
+    num_labels = Theta2.shape[0]
     X = np.concatenate((np.ones((m, 1)), X), axis=1)
     nn_params = np.concatenate((Theta1.flatten(), Theta2.flatten()))
     # feed-forward cost function
     cost = nn_cost_function(
-        nn_params,
-        input_layer_size=Theta1.shape[1],
-        hidden_layer_size=Theta2.shape[1],
-        num_labels=Theta2.shape[0],
-        X=X,
-        y=y,
-        lambda_=0
+        nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, 0
     )
     print 'Cost at parameters (loaded from ex4weights): %f' % cost
     print '(this value should be about 0.287629)'
