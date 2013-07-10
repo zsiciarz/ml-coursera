@@ -15,16 +15,18 @@ def predict(Theta1, Theta2, X):
 
 
 if __name__ == '__main__':
+    print 'Loading and Visualizing Data ...'
     data = loadmat('../../octave/mlclass-ex3/ex3data1.mat')
     X = data['X']
     y = data['y'].flatten()
     m = X.shape[0]
     sel = np.random.permutation(X)[:100]
     display_data(sel)
+    print 'Loading Saved Neural Network Parameters ...'
     weights = loadmat('../../octave/mlclass-ex3/ex3weights.mat')
     Theta1 = weights['Theta1']
     Theta2 = weights['Theta2']
     X = np.concatenate((np.ones((m, 1)), X), axis=1)
     predictions = predict(Theta1, Theta2, X)
     accuracy = 100 * np.mean(map(int, predictions == y))
-    print 'Train accuracy: %0.2f %%' % accuracy
+    print 'Training set accuracy: %0.2f %%' % accuracy
