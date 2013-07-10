@@ -58,7 +58,7 @@ def nn_cost_function(nn_params, input_layer_size, hidden_layer_size, num_labels,
 
 def rand_initialize_weights(L_in, L_out):
     eps = 0.12
-    return np.random.rand(L_in, L_out) * 2.0 * eps - eps
+    return np.random.uniform(-eps, eps, (L_in, L_out))
 
 
 if __name__ == '__main__':
