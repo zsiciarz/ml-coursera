@@ -30,3 +30,9 @@ if __name__ == '__main__':
     predictions = predict(Theta1, Theta2, X)
     accuracy = 100 * np.mean(map(int, predictions == y))
     print 'Training set accuracy: %0.2f %%' % accuracy
+    random_X = np.random.permutation(X)
+    for i in range(m):
+        example = random_X[i].reshape(1, -1)
+        prediction = predict(Theta1, Theta2, example)
+        print 'Prediction: %d (digit %d)' % (prediction, prediction % 10)
+        display_data(example[:, 1:])
