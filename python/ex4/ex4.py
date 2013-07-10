@@ -46,7 +46,10 @@ def nn_cost_function(nn_params, input_layer_size, hidden_layer_size, num_labels,
         h = a3 = sigmoid(Theta2.dot(a2))
         y_vec = np.vectorize(int)(possible_labels == y[i])
         cost += sum(-y_vec * np.log(h) - (1.0 - y_vec) * np.log(1.0 - h))
-    return cost / m
+    cost = cost / m
+    # regularization
+    reg_cost = (lambda_ / (2.0 * m)) * (np.sum(Theta1[:, 1:] ** 2) + np.sum(Theta2[:, 1:] ** 2))
+    return cost + reg_cost
 
 
 if __name__ == '__main__':
