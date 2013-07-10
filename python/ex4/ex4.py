@@ -37,6 +37,16 @@ def nn_cost_function(nn_params, input_layer_size, hidden_layer_size, num_labels,
     boundary = input_layer_size * (hidden_layer_size - 1)
     Theta1 = nn_params[:boundary].reshape((hidden_layer_size - 1, input_layer_size))
     Theta2 = nn_params[boundary:].reshape((num_labels, hidden_layer_size))
+    m = X.shape[0]
+    possible_labels = np.arange(1, num_labels + 1)
+    cost = 0.0
+    for i in range(m):
+        a2 = sigmoid(Theta1.dot(X[i, :]))
+        a2 = np.concatenate((np.ones(1), a2))
+        h = a3 = sigmoid(Theta2.dot(a2))
+        y_vec = np.vectorize(int)(possible_labels == y[i])
+        cost += sum(-y_vec * np.log(h) - (1.0 - y_vec) * np.log(1.0 - h))
+    return cost / m
 
 
 if __name__ == '__main__':
@@ -53,7 +63,7 @@ if __name__ == '__main__':
     m = X.shape[0]
     X = np.concatenate((np.ones((m, 1)), X), axis=1)
     nn_params = np.concatenate((Theta1.flatten(), Theta2.flatten()))
-    nn_cost_function(
+    cost = nn_cost_function(
         nn_params,
         input_layer_size=Theta1.shape[1],
         hidden_layer_size=Theta2.shape[1],
@@ -62,3 +72,5 @@ if __name__ == '__main__':
         y=y,
         lambda_=0
     )
+    print 'Cost at parameters (loaded from ex4weights): %f' % cost
+    print '(this value should be about 0.287629)'
