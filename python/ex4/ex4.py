@@ -77,8 +77,8 @@ if __name__ == '__main__':
     Theta1 = weights['Theta1']
     Theta2 = weights['Theta2']
     m = X.shape[0]
-    input_layer_size = Theta1.shape[1]
-    hidden_layer_size = Theta2.shape[1]
+    input_layer_size = Theta1.shape[1] - 1
+    hidden_layer_size = Theta2.shape[1] - 1
     num_labels = Theta2.shape[0]
     X = np.concatenate((np.ones((m, 1)), X), axis=1)
     nn_params = np.concatenate((Theta1.flatten(), Theta2.flatten()))
