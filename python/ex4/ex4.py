@@ -65,6 +65,24 @@ def debug_initialize_weights(fan_out, fan_in):
     return np.sin(np.arange((1 + fan_in) * fan_out)).reshape((fan_out, 1 + fan_in)) / 10.0
 
 
+def check_nn_gradients(lambda_=0.0):
+    input_layer_size = 3
+    hidden_layer_size = 5
+    num_labels = 3
+    m = 5
+    # We generate some 'random' test data
+    Theta1 = debug_initialize_weights(hidden_layer_size, input_layer_size)
+    Theta2 = debug_initialize_weights(num_labels, hidden_layer_size)
+    # Reusing debugInitializeWeights to generate X
+    X = debug_initialize_weights(m, input_layer_size - 1)
+    X = np.concatenate((np.ones((m, 1)), X), axis=1)
+    y = 1 + np.arange(m) % num_labels
+    # unroll parameters
+    nn_params = np.concatenate((Theta1.flatten(), Theta2.flatten()))
+    cost_func = lambda p: nn_cost_function(p, input_layer_size, hidden_layer_size, num_labels, X, y, lambda_)
+    print cost_func(nn_params)
+
+
 if __name__ == '__main__':
     print 'Loading and Visualizing Data ...'
     data = loadmat('../../octave/mlclass-ex4/ex4data1.mat')
@@ -100,3 +118,4 @@ if __name__ == '__main__':
     print 'Sigmoid gradient evaluated at [1 -0.5 0 0.5 1]:\n%s' % gradient
     initial_Theta1 = rand_initialize_weights(input_layer_size, hidden_layer_size)
     initial_Theta2 = rand_initialize_weights(hidden_layer_size, num_labels)
+    check_nn_gradients()
