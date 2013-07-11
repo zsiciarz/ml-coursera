@@ -61,6 +61,10 @@ def rand_initialize_weights(L_in, L_out):
     return np.random.uniform(-eps, eps, (L_in, L_out))
 
 
+def debug_initialize_weights(L_in, L_out):
+    return np.sin(np.arange(L_in * L_out)).reshape((L_in, L_out)) / 10.0
+
+
 if __name__ == '__main__':
     print 'Loading and Visualizing Data ...'
     data = loadmat('../../octave/mlclass-ex4/ex4data1.mat')
