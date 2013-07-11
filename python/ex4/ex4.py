@@ -41,19 +41,30 @@ def nn_cost_function(nn_params, input_layer_size, hidden_layer_size, num_labels,
     boundary = (input_layer_size + 1) * hidden_layer_size
     Theta1 = nn_params[:boundary].reshape((hidden_layer_size, input_layer_size + 1))
     Theta2 = nn_params[boundary:].reshape((num_labels, hidden_layer_size + 1))
+    Theta1_grad = np.zeros_like(Theta1)
+    Theta2_grad = np.zeros_like(Theta2)
     m = X.shape[0]
     possible_labels = np.arange(1, num_labels + 1)
     cost = 0.0
     for i in range(m):
-        a2 = sigmoid(Theta1.dot(X[i, :]))
+        a1 = X[i, :]
+        a2 = sigmoid(Theta1.dot(a1))
         a2 = np.concatenate((np.ones(1), a2))
         h = a3 = sigmoid(Theta2.dot(a2))
         y_vec = np.vectorize(int)(possible_labels == y[i])
         cost += sum(-y_vec * np.log(h) - (1.0 - y_vec) * np.log(1.0 - h))
+        # backprop
+        delta3 = a3 - y_vec
+        Theta2_grad += np.outer(delta3, a2)
+        delta2 = Theta2.T.dot(delta3) * a2 * (1 - a2)
+        Theta1_grad += np.outer(delta2[1:], a1)
     cost = cost / m
+    Theta1_grad /= m
+    Theta2_grad /= m
+    gradient = np.concatenate((Theta1_grad.flatten(), Theta2_grad.flatten()))
     # regularization
     reg_cost = (lambda_ / (2.0 * m)) * (np.sum(Theta1[:, 1:] ** 2) + np.sum(Theta2[:, 1:] ** 2))
-    return cost + reg_cost
+    return cost + reg_cost, gradient
 
 
 def rand_initialize_weights(L_in, L_out):
@@ -80,7 +91,7 @@ def check_nn_gradients(lambda_=0.0):
     # unroll parameters
     nn_params = np.concatenate((Theta1.flatten(), Theta2.flatten()))
     cost_func = lambda p: nn_cost_function(p, input_layer_size, hidden_layer_size, num_labels, X, y, lambda_)
-    print cost_func(nn_params)
+    cost, grad = cost_func(nn_params)
 
 
 if __name__ == '__main__':
@@ -101,14 +112,14 @@ if __name__ == '__main__':
     X = np.concatenate((np.ones((m, 1)), X), axis=1)
     nn_params = np.concatenate((Theta1.flatten(), Theta2.flatten()))
     # feed-forward cost function
-    cost = nn_cost_function(
+    cost, grad = nn_cost_function(
         nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, 0
     )
     print 'Cost at parameters (loaded from ex4weights): %f' % cost
     print '(this value should be about 0.287629)'
     # feed-forward with regularization
     print 'Checking Cost Function (w/ Regularization) ...'
-    cost = nn_cost_function(
+    cost, grad = nn_cost_function(
         nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, 1
     )
     print 'Cost at parameters (loaded from ex4weights): %f' % cost
