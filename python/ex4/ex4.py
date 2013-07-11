@@ -38,9 +38,9 @@ def sigmoid_gradient(x):
 
 
 def nn_cost_function(nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, lambda_):
-    boundary = input_layer_size * (hidden_layer_size - 1)
-    Theta1 = nn_params[:boundary].reshape((hidden_layer_size - 1, input_layer_size))
-    Theta2 = nn_params[boundary:].reshape((num_labels, hidden_layer_size))
+    boundary = (input_layer_size + 1) * hidden_layer_size
+    Theta1 = nn_params[:boundary].reshape((hidden_layer_size, input_layer_size + 1))
+    Theta2 = nn_params[boundary:].reshape((num_labels, hidden_layer_size + 1))
     m = X.shape[0]
     possible_labels = np.arange(1, num_labels + 1)
     cost = 0.0
