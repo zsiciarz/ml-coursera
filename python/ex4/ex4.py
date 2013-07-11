@@ -61,8 +61,8 @@ def rand_initialize_weights(L_in, L_out):
     return np.random.uniform(-eps, eps, (L_in, L_out))
 
 
-def debug_initialize_weights(L_in, L_out):
-    return np.sin(np.arange(L_in * L_out)).reshape((L_in, L_out)) / 10.0
+def debug_initialize_weights(fan_out, fan_in):
+    return np.sin(np.arange((1 + fan_in) * fan_out)).reshape((fan_out, 1 + fan_in)) / 10.0
 
 
 if __name__ == '__main__':
