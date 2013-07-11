@@ -76,7 +76,7 @@ def check_nn_gradients(lambda_=0.0):
     # Reusing debugInitializeWeights to generate X
     X = debug_initialize_weights(m, input_layer_size - 1)
     X = np.concatenate((np.ones((m, 1)), X), axis=1)
-    y = 1 + np.arange(m) % num_labels
+    y = 1 + np.arange(1, m + 1) % num_labels
     # unroll parameters
     nn_params = np.concatenate((Theta1.flatten(), Theta2.flatten()))
     cost_func = lambda p: nn_cost_function(p, input_layer_size, hidden_layer_size, num_labels, X, y, lambda_)
