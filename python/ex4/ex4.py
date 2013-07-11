@@ -62,7 +62,7 @@ def rand_initialize_weights(L_in, L_out):
 
 
 def debug_initialize_weights(fan_out, fan_in):
-    return np.sin(np.arange((1 + fan_in) * fan_out)).reshape((fan_out, 1 + fan_in)) / 10.0
+    return np.sin(1 + np.arange((1 + fan_in) * fan_out)).reshape((1 + fan_in, fan_out)).T / 10.0
 
 
 def check_nn_gradients(lambda_=0.0):
