@@ -94,6 +94,19 @@ def check_nn_gradients(lambda_=0.0):
     cost, grad = cost_func(nn_params)
 
 
+def compute_numerical_gradient(cost_func, theta):
+    numgrad = np.zeros_like(theta)
+    perturb = np.zeros_like(theta)
+    eps = 1e-4
+    for p in range(theta.size):
+        perturb[p] = eps
+        loss1, _ = cost_func(theta - perturb)
+        loss2, _ = cost_func(theta + perturb)
+        numgrad[p] = (loss2 - loss1) / (2.0 * eps)
+        perturb[p] = 0.0
+    return numgrad
+
+
 if __name__ == '__main__':
     print 'Loading and Visualizing Data ...'
     data = loadmat('../../octave/mlclass-ex4/ex4data1.mat')
