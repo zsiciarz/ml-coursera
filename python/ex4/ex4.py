@@ -1,4 +1,5 @@
 import numpy as np
+from numpy.linalg import norm
 from matplotlib import pyplot as plot
 import matplotlib.cm as cm
 from scipy.io import loadmat
@@ -92,6 +93,14 @@ def check_nn_gradients(lambda_=0.0):
     nn_params = np.concatenate((Theta1.flatten(), Theta2.flatten()))
     cost_func = lambda p: nn_cost_function(p, input_layer_size, hidden_layer_size, num_labels, X, y, lambda_)
     cost, grad = cost_func(nn_params)
+    num_grad = compute_numerical_gradient(cost_func, nn_params)
+    print np.vstack((grad, num_grad)).T
+    print 'The above two columns you get should be very similar.'
+    print '(Left-Your Numerical Gradient, Right-Analytical Gradient)'
+    diff = norm(num_grad - grad) / norm(num_grad + grad)
+    print 'If your backpropagation implementation is correct, then'
+    print 'the relative difference will be small (less than 1e-9).'
+    print 'Relative Difference: %g' % diff
 
 
 def compute_numerical_gradient(cost_func, theta):
