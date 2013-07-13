@@ -62,9 +62,11 @@ def nn_cost_function(nn_params, input_layer_size, hidden_layer_size, num_labels,
     cost = cost / m
     Theta1_grad /= m
     Theta2_grad /= m
-    gradient = np.concatenate((Theta1_grad.flatten(), Theta2_grad.flatten()))
     # regularization
     reg_cost = (lambda_ / (2.0 * m)) * (np.sum(Theta1[:, 1:] ** 2) + np.sum(Theta2[:, 1:] ** 2))
+    Theta1_grad += (lambda_ / m) * np.concatenate((np.zeros((Theta1.shape[0], 1)), Theta1[:, 1:]), axis=1)
+    Theta2_grad += (lambda_ / m) * np.concatenate((np.zeros((Theta2.shape[0], 1)), Theta2[:, 1:]), axis=1)
+    gradient = np.concatenate((Theta1_grad.flatten(), Theta2_grad.flatten()))
     return cost + reg_cost, gradient
 
 
