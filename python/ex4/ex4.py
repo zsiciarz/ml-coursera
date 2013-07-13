@@ -153,4 +153,8 @@ if __name__ == '__main__':
     print 'Sigmoid gradient evaluated at [1 -0.5 0 0.5 1]:\n%s' % gradient
     initial_Theta1 = rand_initialize_weights(input_layer_size, hidden_layer_size)
     initial_Theta2 = rand_initialize_weights(hidden_layer_size, num_labels)
+    print 'Checking Backpropagation...'
     check_nn_gradients()
+    print 'Checking Backpropagation (w/ Regularization) ...'
+    lambda_ = 3.0
+    check_nn_gradients(lambda_)
