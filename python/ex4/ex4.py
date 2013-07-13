@@ -119,6 +119,13 @@ def compute_numerical_gradient(cost_func, theta):
     return numgrad
 
 
+def predict(Theta1, Theta2, X):
+    m = X.shape[0]
+    h1 = sigmoid(X.dot(Theta1.T))
+    h2 = sigmoid(np.concatenate((np.ones((m, 1)), h1), axis=1).dot(Theta2.T))
+    return 1 + np.argmax(h2, axis=1)
+
+
 if __name__ == '__main__':
     print 'Loading and Visualizing Data ...'
     data = loadmat('../../octave/mlclass-ex4/ex4data1.mat')
@@ -183,3 +190,6 @@ if __name__ == '__main__':
     Theta2 = nn_params[boundary:].reshape((num_labels, hidden_layer_size + 1))
     print 'Visualizing Neural Network ...'
     display_data(Theta1[:, 1:])
+    predictions = predict(Theta1, Theta2, X)
+    accuracy = 100 * np.mean(map(int, predictions == y))
+    print 'Training set accuracy: %0.2f %%' % accuracy
