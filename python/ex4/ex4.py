@@ -174,10 +174,12 @@ if __name__ == '__main__':
         jac=True,
         options={
             'maxiter': 50,
-            'disp': True,
+            'disp': False,
         }
     )
     nn_params = result.x
     boundary = (input_layer_size + 1) * hidden_layer_size
     Theta1 = nn_params[:boundary].reshape((hidden_layer_size, input_layer_size + 1))
     Theta2 = nn_params[boundary:].reshape((num_labels, hidden_layer_size + 1))
+    print 'Visualizing Neural Network ...'
+    display_data(Theta1[:, 1:])
