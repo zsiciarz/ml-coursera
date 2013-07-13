@@ -72,7 +72,7 @@ def nn_cost_function(nn_params, input_layer_size, hidden_layer_size, num_labels,
 
 def rand_initialize_weights(L_in, L_out):
     eps = 0.12
-    return np.random.uniform(-eps, eps, (L_in, L_out))
+    return np.random.uniform(-eps, eps, (L_out, 1 + L_in))
 
 
 def debug_initialize_weights(fan_out, fan_in):
