@@ -161,5 +161,5 @@ if __name__ == '__main__':
     cost, grad = nn_cost_function(
         nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, lambda_
     )
-    print 'Cost at (fixed) debugging parameters (w/ lambda = 10): %f ' % cost
+    print 'Cost at (fixed) debugging parameters (w/ lambda = 3): %f ' % cost
     print '(this value should be about 0.576051)'
