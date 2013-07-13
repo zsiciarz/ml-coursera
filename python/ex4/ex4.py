@@ -2,6 +2,7 @@ import numpy as np
 from numpy.linalg import norm
 from matplotlib import pyplot as plot
 import matplotlib.cm as cm
+from scipy import optimize
 from scipy.io import loadmat
 
 
@@ -153,6 +154,7 @@ if __name__ == '__main__':
     print 'Sigmoid gradient evaluated at [1 -0.5 0 0.5 1]:\n%s' % gradient
     initial_Theta1 = rand_initialize_weights(input_layer_size, hidden_layer_size)
     initial_Theta2 = rand_initialize_weights(hidden_layer_size, num_labels)
+    initial_nn_params = np.concatenate((initial_Theta1.flatten(), initial_Theta2.flatten()))
     print 'Checking Backpropagation...'
     check_nn_gradients()
     print 'Checking Backpropagation (w/ Regularization) ...'
@@ -163,3 +165,19 @@ if __name__ == '__main__':
     )
     print 'Cost at (fixed) debugging parameters (w/ lambda = 3): %f ' % cost
     print '(this value should be about 0.576051)'
+    print 'Training Neural Network...'
+    result = optimize.minimize(
+        nn_cost_function,
+        initial_nn_params,
+        args=(input_layer_size, hidden_layer_size, num_labels, X, y, lambda_),
+        method='CG',
+        jac=True,
+        options={
+            'maxiter': 50,
+            'disp': True,
+        }
+    )
+    nn_params = result.x
+    boundary = (input_layer_size + 1) * hidden_layer_size
+    Theta1 = nn_params[:boundary].reshape((hidden_layer_size, input_layer_size + 1))
+    Theta2 = nn_params[boundary:].reshape((num_labels, hidden_layer_size + 1))
