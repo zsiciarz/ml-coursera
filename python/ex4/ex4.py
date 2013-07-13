@@ -158,3 +158,8 @@ if __name__ == '__main__':
     print 'Checking Backpropagation (w/ Regularization) ...'
     lambda_ = 3.0
     check_nn_gradients(lambda_)
+    cost, grad = nn_cost_function(
+        nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, lambda_
+    )
+    print 'Cost at (fixed) debugging parameters (w/ lambda = 10): %f ' % cost
+    print '(this value should be about 0.576051)'
