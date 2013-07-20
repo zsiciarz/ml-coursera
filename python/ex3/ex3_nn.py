@@ -28,7 +28,7 @@ if __name__ == '__main__':
     Theta2 = weights['Theta2']
     X = np.concatenate((np.ones((m, 1)), X), axis=1)
     predictions = predict(Theta1, Theta2, X)
-    accuracy = 100 * np.mean(map(int, predictions == y))
+    accuracy = 100 * np.mean(predictions == y)
     print 'Training set accuracy: %0.2f %%' % accuracy
     random_X = np.random.permutation(X)
     for i in range(m):
