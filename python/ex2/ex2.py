@@ -66,5 +66,5 @@ if __name__ == '__main__':
     prob = sigmoid(np.array([1, 45, 85]).dot(theta))
     print 'For a student with scores 45 and 85, we predict an admission probability of %f' % prob
     predictions = predict(theta, X)
-    accuracy = 100 * np.mean(map(int, predictions == y))
+    accuracy = 100 * np.mean(predictions == y)
     print 'Train accuracy: %0.2f %%' % accuracy
