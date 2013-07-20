@@ -191,5 +191,5 @@ if __name__ == '__main__':
     print 'Visualizing Neural Network ...'
     display_data(Theta1[:, 1:])
     predictions = predict(Theta1, Theta2, X)
-    accuracy = 100 * np.mean(map(int, predictions == y))
+    accuracy = 100 * np.mean(predictions == y)
     print 'Training set accuracy: %0.2f %%' % accuracy
