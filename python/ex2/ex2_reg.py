@@ -63,5 +63,5 @@ if __name__ == '__main__':
     plot.contour(u, v, z.T, [0.0, 0.0])
     plot.show()
     predictions = predict(theta, X)
-    accuracy = 100 * np.mean(map(int, predictions == y))
+    accuracy = 100 * np.mean(predictions == y)
     print 'Train accuracy: %0.2f %%' % accuracy
