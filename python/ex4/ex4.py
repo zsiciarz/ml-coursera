@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import numpy as np
 from numpy.linalg import norm
 from matplotlib import pyplot as plot
@@ -13,9 +15,9 @@ def display_data(X):
     """
     m, n = X.shape
     example_width = int(np.around(np.sqrt(n)))
-    example_height = n / example_width
+    example_height = int(n / example_width)
     display_rows = int(np.sqrt(m))
-    display_cols = m / display_rows
+    display_cols = int(m / display_rows)
     display_array = np.ones((
         display_rows * example_height, display_cols * example_width
     ))
@@ -97,13 +99,13 @@ def check_nn_gradients(lambda_=0.0):
     cost_func = lambda p: nn_cost_function(p, input_layer_size, hidden_layer_size, num_labels, X, y, lambda_)
     cost, grad = cost_func(nn_params)
     num_grad = compute_numerical_gradient(cost_func, nn_params)
-    print np.vstack((grad, num_grad)).T
-    print 'The above two columns you get should be very similar.'
-    print '(Left-Your Numerical Gradient, Right-Analytical Gradient)'
+    print(np.vstack((grad, num_grad)).T)
+    print('The above two columns you get should be very similar.')
+    print('(Left-Your Numerical Gradient, Right-Analytical Gradient)')
     diff = norm(num_grad - grad) / norm(num_grad + grad)
-    print 'If your backpropagation implementation is correct, then'
-    print 'the relative difference will be small (less than 1e-9).'
-    print 'Relative Difference: %g' % diff
+    print('If your backpropagation implementation is correct, then')
+    print('the relative difference will be small (less than 1e-9).')
+    print('Relative Difference: %g' % diff)
 
 
 def compute_numerical_gradient(cost_func, theta):
@@ -127,13 +129,13 @@ def predict(Theta1, Theta2, X):
 
 
 if __name__ == '__main__':
-    print 'Loading and Visualizing Data ...'
+    print('Loading and Visualizing Data ...')
     data = loadmat('../../octave/mlclass-ex4/ex4data1.mat')
     X = data['X']
     y = data['y'].flatten()
     sel = np.random.permutation(X)[:100]
-    display_data(sel)
-    print 'Loading Saved Neural Network Parameters ...'
+    #display_data(sel)
+    print('Loading Saved Neural Network Parameters ...')
     weights = loadmat('../../octave/mlclass-ex4/ex4weights.mat')
     Theta1 = weights['Theta1']
     Theta2 = weights['Theta2']
@@ -147,32 +149,32 @@ if __name__ == '__main__':
     cost, grad = nn_cost_function(
         nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, 0
     )
-    print 'Cost at parameters (loaded from ex4weights): %f' % cost
-    print '(this value should be about 0.287629)'
+    print('Cost at parameters (loaded from ex4weights): %f' % cost)
+    print('(this value should be about 0.287629)')
     # feed-forward with regularization
-    print 'Checking Cost Function (w/ Regularization) ...'
+    print('Checking Cost Function (w/ Regularization) ...')
     cost, grad = nn_cost_function(
         nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, 1
     )
-    print 'Cost at parameters (loaded from ex4weights): %f' % cost
-    print '(this value should be about 0.383770)'
-    print 'Evaluating sigmoid gradient...'
+    print('Cost at parameters (loaded from ex4weights): %f' % cost)
+    print('(this value should be about 0.383770)')
+    print('Evaluating sigmoid gradient...')
     gradient = sigmoid_gradient(np.array([1, -0.5, 0, 0.5, 1]))
-    print 'Sigmoid gradient evaluated at [1 -0.5 0 0.5 1]:\n%s' % gradient
+    print('Sigmoid gradient evaluated at [1 -0.5 0 0.5 1]:\n%s' % gradient)
     initial_Theta1 = rand_initialize_weights(input_layer_size, hidden_layer_size)
     initial_Theta2 = rand_initialize_weights(hidden_layer_size, num_labels)
     initial_nn_params = np.concatenate((initial_Theta1.flatten(), initial_Theta2.flatten()))
-    print 'Checking Backpropagation...'
+    print('Checking Backpropagation...')
     check_nn_gradients()
-    print 'Checking Backpropagation (w/ Regularization) ...'
+    print('Checking Backpropagation (w/ Regularization) ...')
     lambda_ = 3.0
     check_nn_gradients(lambda_)
     cost, grad = nn_cost_function(
         nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, lambda_
     )
-    print 'Cost at (fixed) debugging parameters (w/ lambda = 3): %f ' % cost
-    print '(this value should be about 0.576051)'
-    print 'Training Neural Network...'
+    print('Cost at (fixed) debugging parameters (w/ lambda = 3): %f ' % cost)
+    print('(this value should be about 0.576051)')
+    print('Training Neural Network...')
     result = optimize.minimize(
         nn_cost_function,
         initial_nn_params,
@@ -188,8 +190,8 @@ if __name__ == '__main__':
     boundary = (input_layer_size + 1) * hidden_layer_size
     Theta1 = nn_params[:boundary].reshape((hidden_layer_size, input_layer_size + 1))
     Theta2 = nn_params[boundary:].reshape((num_labels, hidden_layer_size + 1))
-    print 'Visualizing Neural Network ...'
-    display_data(Theta1[:, 1:])
+    print('Visualizing Neural Network ...')
+    #display_data(Theta1[:, 1:])
     predictions = predict(Theta1, Theta2, X)
     accuracy = 100 * np.mean(predictions == y)
-    print 'Training set accuracy: %0.2f %%' % accuracy
+    print('Training set accuracy: %0.2f %%' % accuracy)
