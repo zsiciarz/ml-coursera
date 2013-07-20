@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import numpy as np
 from matplotlib import pyplot as plot
 from scipy import optimize
@@ -39,7 +41,7 @@ if __name__ == '__main__':
     initial_theta = np.zeros(n)
     lambda_ = 1.0
     cost, grad = cost_function_reg(initial_theta, X, y, lambda_)
-    print 'Cost at initial theta (zeros): %f' % cost
+    print('Cost at initial theta (zeros): %f' % cost)
     result = optimize.minimize(
         cost_function_reg,
         initial_theta,
@@ -64,4 +66,4 @@ if __name__ == '__main__':
     plot.show()
     predictions = predict(theta, X)
     accuracy = 100 * np.mean(predictions == y)
-    print 'Train accuracy: %0.2f %%' % accuracy
+    print('Train accuracy: %0.2f %%' % accuracy)
