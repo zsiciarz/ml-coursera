@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import numpy as np
 from matplotlib import pyplot as plot
 import matplotlib.cm as cm
@@ -12,9 +14,9 @@ def display_data(X):
     """
     m, n = X.shape
     example_width = int(np.around(np.sqrt(n)))
-    example_height = n / example_width
+    example_height = int(n / example_width)
     display_rows = int(np.sqrt(m))
-    display_cols = m / display_rows
+    display_cols = int(m / display_rows)
     display_array = np.ones((
         display_rows * example_height, display_cols * example_width
     ))
@@ -73,7 +75,7 @@ def one_vs_all(X, y, num_labels, lambda_):
         )
         theta = result.x
         cost = result.fun
-        print 'Training theta for label %d | cost: %f' % (c, cost)
+        print('Training theta for label %d | cost: %f' % (c, cost))
         all_theta[c - 1, :] = theta
     return all_theta
 
@@ -94,4 +96,4 @@ if __name__ == '__main__':
     all_theta = one_vs_all(X, y, 10, 1)
     predictions = predict_one_vs_all(all_theta, X)
     accuracy = 100 * np.mean(predictions == y)
-    print 'Train accuracy: %0.2f %%' % accuracy
+    print('Train accuracy: %0.2f %%' % accuracy)
