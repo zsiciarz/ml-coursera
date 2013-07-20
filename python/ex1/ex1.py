@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import numpy as np
 from matplotlib import pyplot as plot
 from mpl_toolkits.mplot3d import Axes3D
@@ -42,19 +44,19 @@ if __name__ == '__main__':
     theta = np.zeros(2)
     iterations = 1500
     alpha = 0.01
-    print compute_cost(X, y, theta)
+    print(compute_cost(X, y, theta))
     (theta, J_history) = gradient_descent(X, y, theta, alpha, iterations)
-    print theta
+    print(theta)
     plot.plot(X[:,1], y, 'rx', markersize=10)
     plot.ylabel('Profit in $10,000s')
     plot.xlabel('Population of City in 10,000s')
     plot.plot(X[:,1], X.dot(theta), '-')
     plot.show()
     predict1 = np.array([1, 3.5]).dot(theta)
-    print 'For population = 35,000, we predict a profit of %f' % (predict1 * 10000)
+    print('For population = 35,000, we predict a profit of %f' % (predict1 * 10000))
     predict2 = np.array([1, 7]).dot(theta)
-    print 'For population = 70,000, we predict a profit of %f' % (predict2 * 10000)
-    print 'Visualizing J(theta_0, theta_1) ...'
+    print('For population = 70,000, we predict a profit of %f' % (predict2 * 10000))
+    print('Visualizing J(theta_0, theta_1) ...')
     theta0_vals = np.linspace(-10, 10, 100)
     theta1_vals = np.linspace(-1, 4, 100)
     J_vals = np.zeros((theta0_vals.size, theta1_vals.size))
