@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import numpy as np
 from matplotlib import pyplot as plot
 from scipy import optimize
@@ -39,8 +41,8 @@ if __name__ == '__main__':
     X = np.concatenate((np.ones((m, 1)), X), axis=1)
     initial_theta = np.zeros(n + 1)
     cost, grad = cost_function(initial_theta, X, y)
-    print 'Cost at initial theta (zeros): %f' % cost
-    print 'Gradient at initial theta (zeros): \n %s' % grad
+    print('Cost at initial theta (zeros): %f' % cost)
+    print('Gradient at initial theta (zeros): \n %s' % grad)
     # we need to do some wrapping to play nice with minimize
     wrapped = lambda t: cost_function(t, X, y)[0]
     result = optimize.minimize(
@@ -54,8 +56,8 @@ if __name__ == '__main__':
     )
     theta = result.x
     cost = result.fun
-    print 'Cost at theta found by scipy.optimize.minimize: %f' % cost
-    print 'theta: \n %s' % theta
+    print('Cost at theta found by scipy.optimize.minimize: %f' % cost)
+    print('theta: \n %s' % theta)
     # plot the decision boundary
     plot_x = np.array([X[:, 1].min() - 2, X[:, 1].max() + 2])
     plot_y = (-theta[0] - theta[1] * plot_x) / theta[2]
@@ -64,7 +66,7 @@ if __name__ == '__main__':
     plot.show()
     # prediction
     prob = sigmoid(np.array([1, 45, 85]).dot(theta))
-    print 'For a student with scores 45 and 85, we predict an admission probability of %f' % prob
+    print('For a student with scores 45 and 85, we predict an admission probability of %f' % prob)
     predictions = predict(theta, X)
     accuracy = 100 * np.mean(predictions == y)
-    print 'Train accuracy: %0.2f %%' % accuracy
+    print('Train accuracy: %0.2f %%' % accuracy)
