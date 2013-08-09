@@ -65,10 +65,7 @@ def poly_features(X, power=8):
     """
     Creates polynomial features up to ``power``.
     """
-    m = X.shape[0] if X.shape else 1
-    cols = [np.ones(m)]
-    for i in range(1, power + 1):
-            cols.append(X ** i)
+    cols = [X ** p for p in range(power + 1)]
     return np.vstack(cols).T
 
 
