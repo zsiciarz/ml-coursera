@@ -61,6 +61,17 @@ def learning_curve(X, y, Xval, yval, lambda_):
     return err_train, err_val
 
 
+def poly_features(X, power=8):
+    """
+    Creates polynomial features up to ``power``.
+    """
+    m = X.shape[0] if X.shape else 1
+    cols = [np.ones(m)]
+    for i in range(1, power + 1):
+            cols.append(X ** i)
+    return np.vstack(cols).T
+
+
 if __name__ == '__main__':
     print('Loading and Visualizing Data ...')
     data = loadmat('../../octave/mlclass-ex5/ex5data1.mat')
