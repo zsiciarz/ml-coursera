@@ -95,4 +95,7 @@ if __name__ == '__main__':
     err_train, err_val = learning_curve(X, y, Xval, yval, lambda_)
     plot.plot(range(m), err_train)
     plot.plot(range(m), err_val)
+    plot.title('Learning curve for linear regression')
+    plot.xlabel('Number of training examples')
+    plot.ylabel('Error')
     plot.show()
