@@ -45,3 +45,5 @@ if __name__ == '__main__':
     cost, gradient = cost_function_reg(theta, X, y, 1.0)
     print('Cost at theta = [1, 1]: %f' % cost)
     print('(this value should be about 303.993192)')
+    print('Gradient at theta = [1, 1]: \n %s' % gradient)
+    print('(this value should be about [-15.303016, 598.250744])')
