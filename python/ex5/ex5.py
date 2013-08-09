@@ -110,3 +110,4 @@ if __name__ == '__main__':
     plot.xlabel('Number of training examples')
     plot.ylabel('Error')
     plot.show()
+    Xpoly = poly_features(X[:, 1], 8)
