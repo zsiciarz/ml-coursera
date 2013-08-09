@@ -48,6 +48,19 @@ def train_linear_regression(X, y, lambda_):
     return theta
 
 
+def learning_curve(X, y, Xval, yval, lambda_):
+    m = X.shape[0]
+    err_train = np.zeros_like(y)
+    err_val = np.zeros_like(y)
+    for i in range(1, m):
+        Xtrain = X[:i, :]
+        ytrain = y[:i]
+        theta = train_linear_regression(Xtrain, ytrain, lambda_)
+        err_train[i] = cost_function_reg(theta, Xtrain, ytrain, 0.0)[0]
+        err_val[i] = cost_function_reg(theta, Xval, yval, 0.0)[0]
+    return err_train, err_val
+
+
 if __name__ == '__main__':
     print('Loading and Visualizing Data ...')
     data = loadmat('../../octave/mlclass-ex5/ex5data1.mat')
