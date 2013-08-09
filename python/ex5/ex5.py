@@ -53,6 +53,8 @@ if __name__ == '__main__':
     data = loadmat('../../octave/mlclass-ex5/ex5data1.mat')
     X = data['X']
     y = data['y'].flatten()
+    Xval = data['Xval']
+    yval = data['yval'].flatten()
     m = X.shape[0]
     plot.plot(X, y, 'rx', markersize=10)
     plot.xlabel('Change in water level (x)')
