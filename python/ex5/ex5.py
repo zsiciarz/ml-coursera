@@ -60,11 +60,13 @@ if __name__ == '__main__':
     plot.show()
     X = np.concatenate((np.ones((m, 1)), X), axis=1)
     theta = np.array([1.0, 1.0])
+    # linear regression cost and gradient
     cost, gradient = cost_function_reg(theta, X, y, 1.0)
     print('Cost at theta = [1, 1]: %f' % cost)
     print('(this value should be about 303.993192)')
     print('Gradient at theta = [1, 1]: \n %s' % gradient)
     print('(this value should be about [-15.303016, 598.250744])')
+    # training linear regression
     lambda_ = 0.0
     theta = train_linear_regression(X, y, lambda_)
     plot.plot(X[:, 1], y, 'rx', markersize=10)
