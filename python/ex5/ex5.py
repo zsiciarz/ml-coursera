@@ -90,3 +90,9 @@ if __name__ == '__main__':
     plot.xlabel('Change in water level (x)')
     plot.ylabel('Water flowing out of the dam (y)')
     plot.show()
+    # learning curve
+    lambda_ = 0.0
+    err_train, err_val = learning_curve(X, y, Xval, yval, lambda_)
+    plot.plot(range(m), err_train)
+    plot.plot(range(m), err_val)
+    plot.show()
