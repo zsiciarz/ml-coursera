@@ -61,6 +61,7 @@ if __name__ == '__main__':
     plot.ylabel('Water flowing out of the dam (y)')
     plot.show()
     X = np.concatenate((np.ones((m, 1)), X), axis=1)
+    Xval = np.concatenate((np.ones((Xval.shape[0], 1)), Xval), axis=1)
     theta = np.array([1.0, 1.0])
     # linear regression cost and gradient
     cost, gradient = cost_function_reg(theta, X, y, 1.0)
