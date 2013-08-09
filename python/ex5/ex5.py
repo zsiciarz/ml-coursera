@@ -30,6 +30,24 @@ def cost_function_reg(theta, X, y, lambda_):
     return cost + reg_cost, gradient + reg_gradient
 
 
+def train_linear_regression(X, y, lambda_):
+    n = X.shape[1]
+    initial_theta = np.zeros(n)
+    result = optimize.minimize(
+        cost_function_reg,
+        initial_theta,
+        args=(X, y, lambda_),
+        method='CG',
+        jac=True,
+        options={
+            'maxiter': 400,
+            'disp': False,
+        }
+    )
+    theta = result.x
+    return theta
+
+
 if __name__ == '__main__':
     print('Loading and Visualizing Data ...')
     data = loadmat('../../octave/mlclass-ex5/ex5data1.mat')
