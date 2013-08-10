@@ -40,7 +40,7 @@ def train_linear_regression(X, y, lambda_):
         method='CG',
         jac=True,
         options={
-            'maxiter': 400,
+            'maxiter': 200,
             'disp': False,
         }
     )
