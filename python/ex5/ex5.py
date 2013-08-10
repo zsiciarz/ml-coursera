@@ -83,6 +83,13 @@ def normalize_features(X, mu=None, sigma=None):
     return X, mu, sigma
 
 
+def plot_fit(min_x, max_x, mu, sigma, theta, power):
+    x = np.arange(min_x - 15, max_x + 25, 0.05)
+    Xpoly = poly_features(x, power)
+    Xpoly, _, _ = normalize_features(Xpoly, mu, sigma)
+    plot.plot(x, Xpoly.dot(theta), '--')
+
+
 if __name__ == '__main__':
     print('Loading and Visualizing Data ...')
     data = loadmat('../../octave/mlclass-ex5/ex5data1.mat')
@@ -127,3 +134,13 @@ if __name__ == '__main__':
     Xpoly, mu, sigma = normalize_features(Xpoly)
     Xval_poly = poly_features(Xval[:, 1], power)
     Xval_poly, _, _ = normalize_features(Xval_poly)
+    print('Normalized Training Example 1:\n%s' % Xpoly[0, :])
+    # train linear regression with polynomial features
+    lambda_ = 0.0
+    theta = train_linear_regression(Xpoly, y, lambda_)
+    plot.plot(X[:, 1], y, 'rx', markersize=10)
+    plot_fit(X.min(), X.max(), mu, sigma, theta, power)
+    plot.xlabel('Change in water level (x)')
+    plot.ylabel('Water flowing out of the dam (y)')
+    plot.title('Polynomial Regression Fit (lambda = %f)' % lambda_)
+    plot.show()
