@@ -69,11 +69,13 @@ def poly_features(X, power=8):
     return np.vstack(cols).T
 
 
-def normalize_features(X):
+def normalize_features(X, mu=None, sigma=None):
     m = X.shape[0]
-    mu = np.mean(X, axis=0)
-    sigma = np.std(X, axis=0)
-    sigma[0] = 1.0  # don't divide by zero
+    if mu is None:
+        mu = np.mean(X, axis=0)
+    if sigma is None:
+        sigma = np.std(X, axis=0)
+        sigma[0] = 1.0  # don't divide by zero
     for i in range(m):
         X[i, :] = (X[i, :] - mu) / sigma
     return X, mu, sigma
