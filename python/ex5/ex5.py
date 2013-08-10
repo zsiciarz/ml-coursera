@@ -75,7 +75,9 @@ def normalize_features(X, mu=None, sigma=None):
         mu = np.mean(X, axis=0)
     if sigma is None:
         sigma = np.std(X, axis=0)
-        sigma[0] = 1.0  # don't divide by zero
+    # don't change the intercept term
+    mu[0] = 0.0
+    sigma[0] = 1.0
     for i in range(m):
         X[i, :] = (X[i, :] - mu) / sigma
     return X, mu, sigma
