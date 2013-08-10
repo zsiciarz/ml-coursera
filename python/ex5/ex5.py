@@ -117,3 +117,4 @@ if __name__ == '__main__':
     plot.ylabel('Error')
     plot.show()
     Xpoly = poly_features(X[:, 1], 8)
+    Xpoly, mu, sigma = normalize_features(Xpoly)
