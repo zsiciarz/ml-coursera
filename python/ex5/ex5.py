@@ -69,6 +69,15 @@ def poly_features(X, power=8):
     return np.vstack(cols).T
 
 
+def normalize_features(X):
+    m = X.shape[0]
+    mu = np.mean(X, axis=0)
+    sigma = np.std(X, axis=0)
+    for i in range(m):
+        X[i, :] = (X[i, :] - mu) / sigma
+    return X, mu, sigma
+
+
 if __name__ == '__main__':
     print('Loading and Visualizing Data ...')
     data = loadmat('../../octave/mlclass-ex5/ex5data1.mat')
