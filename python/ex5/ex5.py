@@ -119,5 +119,9 @@ if __name__ == '__main__':
     plot.xlabel('Number of training examples')
     plot.ylabel('Error')
     plot.show()
-    Xpoly = poly_features(X[:, 1], 8)
+    # map polynomial features
+    power = 8
+    Xpoly = poly_features(X[:, 1], power)
     Xpoly, mu, sigma = normalize_features(Xpoly)
+    Xval_poly = poly_features(Xval[:, 1], power)
+    Xval_poly, _, _ = normalize_features(Xval_poly)
