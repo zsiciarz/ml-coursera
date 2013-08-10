@@ -50,9 +50,9 @@ def train_linear_regression(X, y, lambda_):
 
 def learning_curve(X, y, Xval, yval, lambda_):
     m = X.shape[0]
-    err_train = np.zeros_like(y)
-    err_val = np.zeros_like(y)
-    for i in range(1, m):
+    err_train = np.zeros(m + 1)
+    err_val = np.zeros(m + 1)
+    for i in range(1, m + 1):
         Xtrain = X[:i, :]
         ytrain = y[:i]
         theta = train_linear_regression(Xtrain, ytrain, lambda_)
@@ -122,8 +122,8 @@ if __name__ == '__main__':
     # learning curve
     lambda_ = 0.0
     err_train, err_val = learning_curve(X, y, Xval, yval, lambda_)
-    plot.plot(range(m), err_train)
-    plot.plot(range(m), err_val)
+    plot.plot(range(m + 1), err_train)
+    plot.plot(range(m + 1), err_val)
     plot.title('Learning curve for linear regression')
     plot.xlabel('Number of training examples')
     plot.ylabel('Error')
