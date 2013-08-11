@@ -169,3 +169,13 @@ if __name__ == '__main__':
     print('# Training Examples\tTrain Error\tCross Validation Error')
     for i in range(m + 1):
         print('  \t%d\t\t%f\t%f' % (i, err_train[i], err_val[i]))
+    # lambda selection
+    lambda_vec, err_train, err_val = validation_curve(Xpoly, y, Xval_poly, yval)
+    plot.plot(lambda_vec, err_train)
+    plot.plot(lambda_vec, err_val)
+    plot.xlabel('lambda')
+    plot.ylabel('Error')
+    plot.show()
+    print('# lambda\tTrain Error\tCross Validation Error')
+    for i, lambda_ in enumerate(lambda_vec):
+        print('  \t%f\t\t%f\t%f' % (lambda_, err_train[i], err_val[i]))
