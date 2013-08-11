@@ -21,7 +21,7 @@ if __name__ == '__main__':
     data = np.loadtxt('../../octave/ex1/ex1data2.txt', delimiter=',')
     X = data[:, 0:2]
     y = data[:, 2]
-    m = y.size
+    m = X.shape[0]
     print('First 10 examples from the dataset:')
     for i in range(10):
         print(' x = %s, y = %.0f' % (X[i], y[i]))
