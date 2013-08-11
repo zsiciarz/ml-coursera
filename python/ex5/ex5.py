@@ -147,3 +147,14 @@ if __name__ == '__main__':
     plot.ylabel('Water flowing out of the dam (y)')
     plot.title('Polynomial Regression Fit (lambda = %f)' % lambda_)
     plot.show()
+    # learning curve for polynomial fit
+    err_train, err_val = learning_curve(Xpoly, y, Xval_poly, yval, lambda_)
+    plot.plot(range(m + 1), err_train)
+    plot.plot(range(m + 1), err_val)
+    plot.title('Polynomial Regression Learning Curve (lambda = %f)' % (lambda_))
+    plot.xlabel('Number of training examples')
+    plot.ylabel('Error')
+    plot.show()
+    print('# Training Examples\tTrain Error\tCross Validation Error')
+    for i in range(m + 1):
+        print('  \t%d\t\t%f\t%f' % (i, err_train[i], err_val[i]))
