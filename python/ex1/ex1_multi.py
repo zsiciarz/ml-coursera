@@ -43,5 +43,6 @@ if __name__ == '__main__':
     plot.show()
     # price prediction
     x = np.array([[1.0, 1650.0, 3.0]])
+    x, _, _ = normalize_features(x, mu, sigma)
     price = x.dot(theta)
     print('Predicted price of a 1650 sq-ft, 3 br house (using gradient descent):\n $%f' % price)
