@@ -128,6 +128,9 @@ if __name__ == '__main__':
     plot.xlabel('Number of training examples')
     plot.ylabel('Error')
     plot.show()
+    print('# Training Examples\tTrain Error\tCross Validation Error')
+    for i in range(m + 1):
+        print('  \t%d\t\t%f\t%f' % (i, err_train[i], err_val[i]))
     # map polynomial features
     power = 8
     Xpoly = poly_features(X[:, 1], power)
