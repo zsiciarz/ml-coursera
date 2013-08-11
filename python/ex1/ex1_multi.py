@@ -41,3 +41,7 @@ if __name__ == '__main__':
     plot.xlabel('Number of iterations')
     plot.ylabel('Cost J')
     plot.show()
+    # price prediction
+    x = np.array([[1.0, 1650.0, 3.0]])
+    price = x.dot(theta)
+    print('Predicted price of a 1650 sq-ft, 3 br house (using gradient descent):\n $%f' % price)
