@@ -90,6 +90,17 @@ def plot_fit(min_x, max_x, mu, sigma, theta, power):
     plot.plot(x, Xpoly.dot(theta), '--')
 
 
+def validation_curve(X, y, Xval, yval):
+    lambda_vec = np.array([0, 0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1, 3, 10])
+    error_train = np.zeros_like(lambda_vec)
+    error_val = np.zeros_like(lambda_vec)
+    for i, lambda_ in enumerate(lambda_vec):
+        theta = train_linear_regression(X, y, lambda_)
+        error_train[i] = cost_function_reg(theta, X, y, 0.0)[0]
+        error_val[i] = cost_function_reg(theta, Xval, yval, 0.0)[0]
+    return lambda_vec, error_train, error_val
+
+
 if __name__ == '__main__':
     print('Loading and Visualizing Data ...')
     data = loadmat('../../octave/mlclass-ex5/ex5data1.mat')
