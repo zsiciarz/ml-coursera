@@ -3,6 +3,9 @@ from __future__ import print_function
 import numpy as np
 from matplotlib import pyplot as plot
 
+from ex1 import gradient_descent
+
+
 def normalize_features(X, mu=None, sigma=None):
     m = X.shape[0]
     if mu is None:
@@ -25,3 +28,12 @@ if __name__ == '__main__':
     print('First 10 examples from the dataset:')
     for i in range(10):
         print(' x = %s, y = %.0f' % (X[i], y[i]))
+    X = np.concatenate((np.ones((m, 1)), X), axis=1)
+    # normalize features
+    X, mu, sigma = normalize_features(X)
+    print('Running gradient descent ...')
+    alpha = 0.01
+    num_iters = 400
+    theta = np.zeros(3)
+    [theta, J_history] = gradient_descent(X, y, theta, alpha, num_iters)
+    print('Theta computed from gradient descent:\n%s' % theta)
