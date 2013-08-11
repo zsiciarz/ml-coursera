@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import numpy as np
+from numpy.linalg import pinv
 from matplotlib import pyplot as plot
 
 from ex1 import gradient_descent
@@ -19,6 +20,10 @@ def normalize_features(X, mu=None, sigma=None):
     for i in range(m):
         Xnorm[i, :] = (X[i, :] - mu) / sigma
     return Xnorm, mu, sigma
+
+
+def normal_equation(X, y):
+    return pinv(X.T.dot(X)).dot(X.T).dot(y)
 
 
 if __name__ == '__main__':
