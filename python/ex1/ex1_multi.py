@@ -37,3 +37,7 @@ if __name__ == '__main__':
     theta = np.zeros(3)
     [theta, J_history] = gradient_descent(X, y, theta, alpha, num_iters)
     print('Theta computed from gradient descent:\n%s' % theta)
+    plot.plot(J_history, '-b')
+    plot.xlabel('Number of iterations')
+    plot.ylabel('Cost J')
+    plot.show()
