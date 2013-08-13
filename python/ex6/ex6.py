@@ -17,8 +17,8 @@ def plot_data(X, y, show=True):
 
 if __name__ == '__main__':
     data = loadmat('../../octave/mlclass-ex6/ex6data1.mat')
-    X = data['X']
-    y = data['y'].flatten()
+    X = np.require(data['X'], dtype=np.float64, requirements='C_CONTIGUOUS')
+    y = np.require(data['y'].flatten(), dtype=np.float64)
     plot_data(X, y)
     print('Training Linear SVM ...')
     C = 1
