@@ -1,6 +1,5 @@
 ipython==0.13.2
-# Note: libsvm-python requires libsvm >= 3.14
-git+https://github.com/Salinger/libsvm-python.git#egg=libsvm-python
 matplotlib==1.2.1
 numpy==1.7.1
+scikit-learn==0.14.1
 scipy==0.12.0
