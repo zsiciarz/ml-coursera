@@ -3,7 +3,7 @@ from __future__ import print_function
 import numpy as np
 from matplotlib import pyplot as plot
 from scipy.io import loadmat
-import svmutil
+from sklearn.svm import libsvm
 
 
 def plot_data(X, y, show=True):
@@ -22,9 +22,4 @@ if __name__ == '__main__':
     plot_data(X, y)
     print('Training Linear SVM ...')
     C = 1
-    params = '-q -c %d -t %d -e %f' % (
-        C,  # cost
-        0,  # linear kernel
-        0.001,  # epsilon
-    )
-    model = svmutil.svm_train(y.tolist(), X.tolist(), params)
+    model = libsvm.fit(X, y, kernel='linear', tol=0.001, C=C)
