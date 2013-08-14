@@ -27,6 +27,31 @@ def visualize_boundary_linear(X, y, model):
     plot.show()
 
 
+def visualize_boundary(X, y, model, gamma):
+    plot_data(X, y, show=False)
+    x1plot = np.linspace(np.amin(X[:, 0]), np.amax(X[:, 0]), 100)
+    x2plot = np.linspace(np.amin(X[:, 1]), np.amax(X[:, 1]), 100)
+    X1, X2 = np.meshgrid(x1plot, x2plot)
+    predictions = np.zeros_like(X1)
+    for i in range(X1.shape[1]):
+        currentX = np.require(np.vstack((X1[:, i], X2[:, i])).T, requirements='C_CONTIGUOUS')
+        predictions[:, i] = libsvm.predict(
+            currentX,
+            support=model[0],
+            SV=model[1],
+            nSV=model[2],
+            sv_coef=model[3],
+            intercept=model[4],
+            label=model[5],
+            probA=model[6],
+            probB=model[7],
+            kernel='rbf',
+            gamma=gamma
+        )
+    plot.contour(X1, X2, predictions, [0.0, 0.0])
+    plot.show()
+
+
 def gaussian_kernel(x1, x2, sigma):
     return np.exp(-sum((x1 - x2) ** 2) / (2.0 * sigma ** 2))
 
@@ -57,3 +82,4 @@ if __name__ == '__main__':
     sigma = 0.1
     gamma = 1.0 / (2.0 * sigma ** 2)
     model = libsvm.fit(X, y, kernel='rbf', C=C, gamma=gamma)
+    visualize_boundary(X, y, model, gamma)
