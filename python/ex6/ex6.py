@@ -27,6 +27,10 @@ def visualize_boundary_linear(X, y, model):
     plot.show()
 
 
+def gaussian_kernel(x1, x2, sigma):
+    return np.exp(-sum((x1 - x2) ** 2) / (2.0 * sigma ** 2))
+
+
 if __name__ == '__main__':
     data = loadmat('../../octave/mlclass-ex6/ex6data1.mat')
     X = np.require(data['X'], dtype=np.float64, requirements='C_CONTIGUOUS')
