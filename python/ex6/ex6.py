@@ -47,3 +47,8 @@ if __name__ == '__main__':
     value = gaussian_kernel(x1, x2, sigma)
     print('Gaussian Kernel between x1 = [1; 2; 1], x2 = [0; 4; -1], sigma = 0.5: %f' % value)
     print('(this value should be about 0.324652)')
+    # dataset 2
+    data = loadmat('../../octave/mlclass-ex6/ex6data2.mat')
+    X = np.require(data['X'], dtype=np.float64, requirements='C_CONTIGUOUS')
+    y = np.require(data['y'].flatten(), dtype=np.float64)
+    plot_data(X, y)
