@@ -40,3 +40,10 @@ if __name__ == '__main__':
     C = 1.0
     model = libsvm.fit(X, y, kernel='linear', tol=0.001, C=C, max_iter=20)
     visualize_boundary_linear(X, y, model)
+    # evaluate gaussian kernel
+    x1 = np.array([1.0, 2.0, 1.0])
+    x2 = np.array([0.0, 4.0, -1.0])
+    sigma = 2.0
+    value = gaussian_kernel(x1, x2, sigma)
+    print('Gaussian Kernel between x1 = [1; 2; 1], x2 = [0; 4; -1], sigma = 0.5: %f' % value)
+    print('(this value should be about 0.324652)')
