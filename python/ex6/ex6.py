@@ -56,6 +56,37 @@ def gaussian_kernel(x1, x2, sigma):
     return np.exp(-sum((x1 - x2) ** 2) / (2.0 * sigma ** 2))
 
 
+def dataset3_params(X, y, Xval, yval):
+    all_C = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30]
+    all_sigma = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30]
+    best_C = all_C[0]
+    best_sigma = all_sigma[0]
+    previous_err = 1000.0
+    for C in all_C:
+        for sigma in all_sigma:
+            gamma = 1.0 / (2.0 * sigma ** 2)
+            model = libsvm.fit(X, y, kernel='rbf', C=C, gamma=gamma)
+            predictions = libsvm.predict(
+                Xval,
+                support=model[0],
+                SV=model[1],
+                nSV=model[2],
+                sv_coef=model[3],
+                intercept=model[4],
+                label=model[5],
+                probA=model[6],
+                probB=model[7],
+                kernel='rbf',
+                gamma=gamma
+            )
+            err = np.mean(predictions != yval)
+            if err < previous_err:
+                best_C = C
+                best_sigma = sigma
+                previous_err = err
+    return (best_C, best_sigma)
+
+
 if __name__ == '__main__':
     data = loadmat('../../octave/mlclass-ex6/ex6data1.mat')
     X = np.require(data['X'], dtype=np.float64, requirements='C_CONTIGUOUS')
