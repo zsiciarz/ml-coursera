@@ -121,3 +121,6 @@ if __name__ == '__main__':
     Xval = np.require(data['Xval'], dtype=np.float64, requirements='C_CONTIGUOUS')
     yval = np.require(data['yval'].flatten(), dtype=np.float64)
     plot_data(X, y)
+    best_C, best_sigma = dataset3_params(X, y, Xval, yval)
+    best_gamma = 1.0 / (2.0 * best_sigma ** 2)
+    model = libsvm.fit(X, y, kernel='rbf', C=best_C, gamma=best_gamma)
