@@ -83,3 +83,8 @@ if __name__ == '__main__':
     gamma = 1.0 / (2.0 * sigma ** 2)
     model = libsvm.fit(X, y, kernel='rbf', C=C, gamma=gamma)
     visualize_boundary(X, y, model, gamma)
+    # dataset 3
+    data = loadmat('../../octave/mlclass-ex6/ex6data3.mat')
+    X = np.require(data['X'], dtype=np.float64, requirements='C_CONTIGUOUS')
+    y = np.require(data['y'].flatten(), dtype=np.float64)
+    plot_data(X, y)
