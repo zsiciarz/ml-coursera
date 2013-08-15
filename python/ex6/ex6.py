@@ -124,3 +124,4 @@ if __name__ == '__main__':
     best_C, best_sigma = dataset3_params(X, y, Xval, yval)
     best_gamma = 1.0 / (2.0 * best_sigma ** 2)
     model = libsvm.fit(X, y, kernel='rbf', C=best_C, gamma=best_gamma)
+    visualize_boundary(X, y, model, best_gamma)
