@@ -6,6 +6,7 @@ import re
 def process_email(email_contents):
     email_contents = email_contents.lower()
     email_contents = re.sub('<[^<>]+>', ' ', email_contents)
+    email_contents = re.sub('\d+', 'number', email_contents)
     return []
 
 
