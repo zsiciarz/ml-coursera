@@ -43,3 +43,6 @@ if __name__ == '__main__':
     vocabulary = get_vocabulary()
     word_indices = process_email(file_contents, vocabulary)
     print('Word indices:\n%s' % word_indices)
+    features = email_features(word_indices, vocabulary)
+    print('Length of feature vector: %d' % len(features))
+    print('Number of non-zero entries: %d' % sum(features > 0))
