@@ -2,6 +2,8 @@ from __future__ import print_function
 
 import re
 
+from stemming.porter2 import stem
+
 
 def process_email(email_contents):
     email_contents = email_contents.lower()
@@ -11,7 +13,7 @@ def process_email(email_contents):
     email_contents = re.sub(r'[^\s]+@[^\s]+', 'emailaddr', email_contents)
     email_contents = re.sub(r'[$]+', 'dollar', email_contents)
     print('==== Processed Email ====')
-    words = re.findall(r"\w+", email_contents)
+    words = [stem(word) for word in re.findall(r"\w+", email_contents)]
     print(' '.join(words))
     return []
 
