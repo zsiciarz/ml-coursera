@@ -5,11 +5,11 @@ import re
 
 def process_email(email_contents):
     email_contents = email_contents.lower()
-    email_contents = re.sub('<[^<>]+>', ' ', email_contents)
-    email_contents = re.sub('\d+', 'number', email_contents)
-    email_contents = re.sub('(http|https)://[^\s]*', 'httpaddr', email_contents)
-    email_contents = re.sub('[^\s]+@[^\s]+', 'emailaddr', email_contents)
-    email_contents = re.sub('[$]+', 'dollar', email_contents)
+    email_contents = re.sub(r'<[^<>]+>', ' ', email_contents)
+    email_contents = re.sub(r'\d+', 'number', email_contents)
+    email_contents = re.sub(r'(http|https)://[^\s]*', 'httpaddr', email_contents)
+    email_contents = re.sub(r'[^\s]+@[^\s]+', 'emailaddr', email_contents)
+    email_contents = re.sub(r'[$]+', 'dollar', email_contents)
     return []
 
 
