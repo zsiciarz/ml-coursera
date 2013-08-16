@@ -16,6 +16,7 @@ def get_vocabulary():
 
 
 def process_email(email_contents):
+    vocabulary = get_vocabulary()
     email_contents = email_contents.lower()
     email_contents = re.sub(r'<[^<>]+>', ' ', email_contents)
     email_contents = re.sub(r'\d+', 'number', email_contents)
@@ -25,7 +26,9 @@ def process_email(email_contents):
     print('==== Processed Email ====')
     words = [stem(word) for word in re.findall(r"\w+", email_contents)]
     print(' '.join(words))
-    return []
+    word_indices = [vocabulary[word] for word in words if word in vocabulary]
+    print('=========================')
+    return word_indices
 
 
 if __name__ == '__main__':
