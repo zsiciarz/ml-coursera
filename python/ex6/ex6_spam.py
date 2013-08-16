@@ -31,6 +31,13 @@ def process_email(email_contents, vocabulary):
     return np.array(word_indices)
 
 
+def email_features(word_indices, vocabulary):
+    features = np.zeros(len(vocabulary))
+    for index in word_indices:
+        features[index] = 1.0
+    return features
+
+
 if __name__ == '__main__':
     file_contents = open('../../octave/mlclass-ex6/emailSample1.txt', 'r').read()
     vocabulary = get_vocabulary()
