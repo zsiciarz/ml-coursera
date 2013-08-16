@@ -10,6 +10,9 @@ def process_email(email_contents):
     email_contents = re.sub(r'(http|https)://[^\s]*', 'httpaddr', email_contents)
     email_contents = re.sub(r'[^\s]+@[^\s]+', 'emailaddr', email_contents)
     email_contents = re.sub(r'[$]+', 'dollar', email_contents)
+    print('==== Processed Email ====')
+    words = re.findall(r"\w+", email_contents)
+    print(' '.join(words))
     return []
 
 
