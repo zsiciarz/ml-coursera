@@ -3,6 +3,7 @@ from __future__ import print_function
 import csv
 import re
 
+import numpy as np
 from stemming.porter2 import stem
 
 
@@ -27,7 +28,7 @@ def process_email(email_contents, vocabulary):
     print(' '.join(words))
     word_indices = [vocabulary[word] for word in words if word in vocabulary]
     print('=========================')
-    return word_indices
+    return np.array(word_indices)
 
 
 if __name__ == '__main__':
