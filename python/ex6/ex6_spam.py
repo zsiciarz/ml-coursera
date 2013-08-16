@@ -2,6 +2,7 @@ from __future__ import print_function
 
 
 def process_email(email_contents):
+    email_contents = email_contents.lower()
     return []
 
 
