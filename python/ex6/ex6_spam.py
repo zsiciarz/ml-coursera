@@ -1,8 +1,18 @@
 from __future__ import print_function
 
+import csv
 import re
 
 from stemming.porter2 import stem
+
+
+def get_vocabulary():
+    vocabulary = {}
+    with open('../../octave/mlclass-ex6/vocab.txt', 'r') as f:
+        reader = csv.reader(f, delimiter='\t', skipinitialspace=True)
+        for row in reader:
+            vocabulary[row[1]] = int(row[0])
+    return vocabulary
 
 
 def process_email(email_contents):
