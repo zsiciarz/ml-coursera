@@ -7,6 +7,8 @@ def process_email(email_contents):
     email_contents = email_contents.lower()
     email_contents = re.sub('<[^<>]+>', ' ', email_contents)
     email_contents = re.sub('\d+', 'number', email_contents)
+    email_contents = re.sub('(http|https)://[^\s]*', 'httpaddr', email_contents)
+    email_contents = re.sub('[^\s]+@[^\s]+', 'emailaddr', email_contents)
     return []
 
 
