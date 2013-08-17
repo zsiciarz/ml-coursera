@@ -54,3 +54,15 @@ if __name__ == '__main__':
     y = np.require(data['y'].flatten(), dtype=np.float64)
     C = 0.1
     model = libsvm.fit(X, y, kernel='linear', C=C)
+    predictions = libsvm.predict(
+        X,
+        support=model[0],
+        SV=model[1],
+        nSV=model[2],
+        sv_coef=model[3],
+        intercept=model[4],
+        label=model[5],
+        probA=model[6],
+        probB=model[7],
+        kernel='linear',
+    )
