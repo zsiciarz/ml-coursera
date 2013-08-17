@@ -5,6 +5,7 @@ import re
 
 import numpy as np
 from scipy.io import loadmat
+from sklearn.svm import libsvm
 from stemming.porter2 import stem
 
 
@@ -51,3 +52,5 @@ if __name__ == '__main__':
     data = loadmat('../../octave/mlclass-ex6/spamTrain.mat')
     X = np.require(data['X'], dtype=np.float64, requirements='C_CONTIGUOUS')
     y = np.require(data['y'].flatten(), dtype=np.float64)
+    C = 0.1
+    model = libsvm.fit(X, y, kernel='linear', C=C)
