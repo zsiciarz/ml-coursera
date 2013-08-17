@@ -87,3 +87,12 @@ if __name__ == '__main__':
     )
     accuracy = 100 * np.mean(predictions == ytest)
     print('Test set accuracy: %0.2f %%' % accuracy)
+    # top predictors of spam
+    support_vectors = model[1]
+    coeffs = model[3]
+    normal_vector = coeffs.dot(support_vectors).flatten()
+    indices = np.argsort(normal_vector)[::-1]
+    reverse_vocabulary = {idx: word for word, idx in vocabulary.items()}
+    print('Top predictors of spam:')
+    for idx in indices[:15]:
+        print('%s (%f)' % (reverse_vocabulary[idx], normal_vector[idx]))
