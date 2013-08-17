@@ -72,3 +72,16 @@ if __name__ == '__main__':
     data = loadmat('../../octave/mlclass-ex6/spamTest.mat')
     Xtest = np.require(data['Xtest'], dtype=np.float64, requirements='C_CONTIGUOUS')
     ytest = np.require(data['ytest'].flatten(), dtype=np.float64)
+    print('Evaluating the trained Linear SVM on a test set ...')
+    predictions = libsvm.predict(
+        Xtest,
+        support=model[0],
+        SV=model[1],
+        nSV=model[2],
+        sv_coef=model[3],
+        intercept=model[4],
+        label=model[5],
+        probA=model[6],
+        probB=model[7],
+        kernel='linear',
+    )
