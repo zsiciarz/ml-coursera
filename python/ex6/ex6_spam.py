@@ -4,6 +4,7 @@ import csv
 import re
 
 import numpy as np
+from scipy.io import loadmat
 from stemming.porter2 import stem
 
 
@@ -46,3 +47,7 @@ if __name__ == '__main__':
     features = email_features(word_indices, vocabulary)
     print('Length of feature vector: %d' % len(features))
     print('Number of non-zero entries: %d' % sum(features > 0))
+    # train SVM for spam classification
+    data = loadmat('../../octave/mlclass-ex6/spamTrain.mat')
+    X = np.require(data['X'], dtype=np.float64, requirements='C_CONTIGUOUS')
+    y = np.require(data['y'].flatten(), dtype=np.float64)
