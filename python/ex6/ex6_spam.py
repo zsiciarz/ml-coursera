@@ -96,3 +96,22 @@ if __name__ == '__main__':
     print('Top predictors of spam:')
     for idx in indices[:15]:
         print('%s (%f)' % (reverse_vocabulary[idx], normal_vector[idx]))
+    # try own emails
+    filename = '../../octave/mlclass-ex6/spamSample2.txt'
+    file_contents = open(filename, 'r').read()
+    word_indices = process_email(file_contents, vocabulary)
+    x = email_features(word_indices, vocabulary)
+    p = libsvm.predict(
+        np.array([x]),
+        support=model[0],
+        SV=model[1],
+        nSV=model[2],
+        sv_coef=model[3],
+        intercept=model[4],
+        label=model[5],
+        probA=model[6],
+        probB=model[7],
+        kernel='linear',
+    )
+    print('Processed %s\nSpam Classification: %d' % (filename, p))
+    print('(1 indicates spam, 0 indicates not spam)')
