@@ -85,3 +85,5 @@ if __name__ == '__main__':
         probB=model[7],
         kernel='linear',
     )
+    accuracy = 100 * np.mean(predictions == ytest)
+    print('Test set accuracy: %0.2f %%' % accuracy)
