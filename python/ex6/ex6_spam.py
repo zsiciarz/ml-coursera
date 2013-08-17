@@ -68,3 +68,7 @@ if __name__ == '__main__':
     )
     accuracy = 100 * np.mean(predictions == y)
     print('Training set accuracy: %0.2f %%' % accuracy)
+    # load test set
+    data = loadmat('../../octave/mlclass-ex6/spamTest.mat')
+    Xtest = np.require(data['Xtest'], dtype=np.float64, requirements='C_CONTIGUOUS')
+    ytest = np.require(data['ytest'].flatten(), dtype=np.float64)
