@@ -40,6 +40,44 @@ def sigmoid(x):
 def sigmoid_gradient(x):
     return sigmoid(x) * (1.0 - sigmoid(x))
 
+def nn_cost_function_vectorized(nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, lambda_):
+    boundary = (input_layer_size + 1) * hidden_layer_size
+    Theta1 = nn_params[:boundary].reshape((hidden_layer_size, input_layer_size + 1))
+    Theta2 = nn_params[boundary:].reshape((num_labels, hidden_layer_size + 1))
+    Theta1_grad = np.zeros_like(Theta1)
+    Theta2_grad = np.zeros_like(Theta2)
+    m = X.shape[0]
+
+    #forward propagation
+    y = np.reshape(y, (np.shape(y)[0],1))
+    yMatrix = 1*(np.arange(1,num_labels+1) == y)
+    a1 = X
+    z2 = np.dot(a1,Theta1.T)
+    a2 = np.concatenate((np.ones((m,1)), sigmoid(z2)), axis=1)
+    z3 = np.dot(a2,Theta2.T)
+    a3 = sigmoid(z3)
+
+    #cost function
+    J = -np.sum(yMatrix*np.log(a3)+(1-yMatrix)*np.log(1.0-a3))/m
+    J = J + lambda_/(2*m)*(np.sum(Theta1[:,1:]**2) + np.sum(Theta2[:,1:]**2))
+
+    #back propagation
+    d3 = a3-yMatrix
+    d2 = np.dot(Theta2[:,1:].T, d3.T)*sigmoid_gradient(z2).T
+    Delta1 = np.dot(d2, a1)
+    Delta2 = np.dot(d3.T, a2)
+
+    #gradient calculation
+    Theta1_reg = lambda_/m*Theta1
+    Theta2_reg = lambda_/m*Theta2
+    Theta1_reg[:,0] = 0
+    Theta2_reg[:,0] = 0
+    Theta1_grad = 1/m*Delta1 + Theta1_reg
+    Theta2_grad = 1/m*Delta2 + Theta2_reg
+    gradient = np.concatenate((Theta1_grad.flatten('C'), Theta2_grad.flatten('C')))
+    
+    return J, gradient
+
 
 def nn_cost_function(nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, lambda_):
     boundary = (input_layer_size + 1) * hidden_layer_size
